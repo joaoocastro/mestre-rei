@@ -5,3 +5,9 @@ Set-ExecutionPolicy RemoteSigned
 .\venv\Scripts\activate
 
 ## vai aparecer assim - > (venv) PS C:\Users\joaoc\Documents\workspace\mestre-rei>
+
+
+## GIT
+git add .
+git commit -m 'mensagem'
+git push
