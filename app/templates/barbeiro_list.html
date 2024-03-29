@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Barbeiros</title>
+</head>
+<body>
+    <h1>Lista de Barbeiros</h1>
+
+    <ul>
+        {% for barbeiro in barbeiros %}
+            <li>
+                <a href="{% url 'barbeiro-detail' barbeiro.pk %}">{{ barbeiro.NomeBarbeiro }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

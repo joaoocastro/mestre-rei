@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bem-Vindo</title>
+    <style>
+        .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+        .sidebar {
+            flex: 0 0 30%; /* Largura da barra lateral */
+            background-color: #f0f0f0;
+            padding: 20px;
+        }
+        .content {
+            flex: 0 0 70%; /* Largura do conteúdo principal */
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Bem-Vindo, {{ user.username }}</h1>
+
+    <div class="container">
+        <div class="sidebar">
+            <h2>Lista de Modelos</h2>
+            <ul>
+                <li><a href="{% url 'barbeiro-list' %}">Barbeiros</a></li>
+                <!-- Adicione outros links para os modelos que deseja listar -->
+            </ul>
+        </div>
+        <div class="content">
+            <!-- Conteúdo principal da página -->
+            <p>Aqui você pode acessar as opções disponíveis após o login.</p>
+            <p><a href="{% url 'logout' %}">Logout</a></p>
+        </div>
+    </div>
+</body>
+</html>

@@ -3,6 +3,32 @@ from django.views import View
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from .models import Barbeiro, Barbearia, Cliente, Trabalha, Agendamento
+from django.contrib import messages
+from django.views.generic import TemplateView
+from django.contrib.auth.views import LoginView
+from django.contrib.auth.forms import UserCreationForm
+from django.views.generic.edit import CreateView
+
+
+class SignUpView(CreateView):
+    form_class = UserCreationForm
+    template_name = 'signup.html'
+    success_url = reverse_lazy('login')
+
+
+class CustomLoginView(LoginView):
+    template_name = 'login.html'
+
+
+class HomeView(TemplateView):
+    template_name = 'home.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['barbeiros'] = Barbeiro.objects.all()
+        context['barbearias'] = Barbearia.objects.all()
+        context['clientes'] = Cliente.objects.all()
+        return context
 
 # Views para o modelo Barbeiro
 class BarbeiroListView(ListView):
@@ -17,8 +43,13 @@ class BarbeiroDetailView(DetailView):
 
 class BarbeiroCreateView(CreateView):
     model = Barbeiro
-    template_name = 'barbeiro_form.html'  # Substitua pelo nome do seu template
+    template_name = 'barbeiro_form.html'
     fields = '__all__'
+    success_url = reverse_lazy('barbeiro-add')  # Redireciona para a mesma página para cadastrar outro barbeiro
+
+    def form_valid(self, form):
+        messages.success(self.request, 'Barbeiro cadastrado com sucesso!')
+        return super().form_valid(form)
 
 class BarbeiroUpdateView(UpdateView):
     model = Barbeiro

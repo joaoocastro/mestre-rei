@@ -16,8 +16,21 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from app.views import * # importar todas as views para uso aqui nas urls
+from django.contrib.auth.views import LoginView, LogoutView
+
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('barbeiro/', include('app.url')),
+    path('admin/', admin.site.urls), #administrador
+    path('', HomeView.as_view(), name='home'), # home
+    path('login/', CustomLoginView.as_view(), name='login'),
+    path('logout/', LogoutView.as_view(), name='logout'),
+    path('signup/', SignUpView.as_view(), name='signup'),
+    
+    path('barbeiros/', BarbeiroListView.as_view(), name='barbeiro-list'),
+    path('barbeiros/<int:pk>/', BarbeiroDetailView.as_view(), name='barbeiro-detail'),
+    path('barbeiros/add/', BarbeiroCreateView.as_view(), name='barbeiro-add'),
+    path('barbeiros/<int:pk>/update/', BarbeiroUpdateView.as_view(), name='barbeiro-update'),
+    path('barbeiros/<int:pk>/delete/', BarbeiroDeleteView.as_view(), name='barbeiro-delete'),
 ]
+

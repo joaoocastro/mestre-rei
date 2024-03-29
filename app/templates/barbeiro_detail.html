@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes do Barbeiro</title>
+</head>
+<body>
+    <h1>Detalhes do Barbeiro</h1>
+
+    <p><strong>ID do Barbeiro:</strong> {{ barbeiro.idBarbeiro }}</p>
+    <p><strong>Nome:</strong> {{ barbeiro.NomeBarbeiro }}</p>
+    <p><strong>Telefone:</strong> {{ barbeiro.telefoneBarbeiro }}</p>
+    <p><strong>Foto:</strong> <img src="{{ barbeiro.fotoBarbeiro }}" alt="Foto do Barbeiro"></p>
+    
+    <!-- Adicione outras informações do barbeiro conforme necessário -->
+    
+    <p><a href="{% url 'barbeiro-update' barbeiro.pk %}">Editar</a></p>
+    <p><a href="{% url 'barbeiro-delete' barbeiro.pk %}">Excluir</a></p>
+</body>
+</html>

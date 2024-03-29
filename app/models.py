@@ -47,3 +47,4 @@ class Agendamento(models.Model):
 
     def __str__(self):
         return f"Agendamento {self.idAgendamento} - {self.dataCompleta}"
+
