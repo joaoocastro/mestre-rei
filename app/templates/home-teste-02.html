@@ -62,26 +62,13 @@
         <div class="sidebar">
             <h2>Lista de Modelos</h2>
             <ul>
-                <li>
-                    Barbeiro
-                    <ul>
-                        <li><a href="#" onclick="showDetails('barbeiros-list')">Listar Barbeiros</a></li>
-                        <li><a href="{% url 'barbeiro-add' %}">Cadastrar Barbeiro</a></li>
-                    </ul>
-                </li>
-                <li>
-                    Barbearia
-                    <ul>
-                        <li><a href="#barbearias-list" onclick="showDetails('barbearias-list')">Listar Barbearias</a></li>
-                        <!-- Adicione a URL de cadastro de Barbearia aqui -->
-                    </ul>
-                </li>
-                <!-- Adicione outros modelos aqui -->
+                <li><a href="#barbeiros" onclick="showDetails('barbeiros')">Barbeiros</a></li>
+                <li><a href="#barbearias" onclick="showDetails('barbearias')">Barbearias</a></li>
+                <li><a href="#clientes" onclick="showDetails('clientes')">Clientes</a></li>
             </ul>
         </div>
-        
         <div class="content">
-            <div id="barbeiros-list" class="hidden">
+            <div id="barbeiros" class="hidden">
                 <h2>Barbeiros</h2>
                 <ul>
                     {% for barbeiro in barbeiros %}

@@ -59,13 +59,21 @@
     </div>
 
     <div class="container">
+        {% comment %} <div class="sidebar">
+            <h2>Lista de Modelos</h2>
+            <ul>
+                <li><a href="#barbeiros" onclick="showDetails('barbeiros')">Barbeiros</a></li>
+                <li><a href="#barbearias" onclick="showDetails('barbearias')">Barbearias</a></li>
+                <li><a href="#clientes" onclick="showDetails('clientes')">Clientes</a></li>
+            </ul>
+        </div> {% endcomment %}
         <div class="sidebar">
             <h2>Lista de Modelos</h2>
             <ul>
                 <li>
                     Barbeiro
                     <ul>
-                        <li><a href="#" onclick="showDetails('barbeiros-list')">Listar Barbeiros</a></li>
+                        <li><a href="#barbeiros-list" onclick="showDetails('barbeiros-list')">Listar Barbeiros</a></li>
                         <li><a href="{% url 'barbeiro-add' %}">Cadastrar Barbeiro</a></li>
                     </ul>
                 </li>
@@ -81,7 +89,7 @@
         </div>
         
         <div class="content">
-            <div id="barbeiros-list" class="hidden">
+            <div id="barbeiros" class="hidden">
                 <h2>Barbeiros</h2>
                 <ul>
                     {% for barbeiro in barbeiros %}

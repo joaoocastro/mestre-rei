@@ -4,18 +4,60 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detalhes do Barbeiro</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        p {
+            margin-bottom: 10px;
+        }
+        strong {
+            font-weight: bold;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+        a {
+            color: #007bff;
+            text-decoration: none;
+            margin-right: 10px;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
-    <h1>Detalhes do Barbeiro</h1>
+    <div class="container">
+        <h1>Detalhes do Barbeiro</h1>
 
-    <p><strong>ID do Barbeiro:</strong> {{ barbeiro.idBarbeiro }}</p>
-    <p><strong>Nome:</strong> {{ barbeiro.NomeBarbeiro }}</p>
-    <p><strong>Telefone:</strong> {{ barbeiro.telefoneBarbeiro }}</p>
-    <p><strong>Foto:</strong> <img src="{{ barbeiro.fotoBarbeiro }}" alt="Foto do Barbeiro"></p>
-    
-    <!-- Adicione outras informações do barbeiro conforme necessário -->
-    
-    <p><a href="{% url 'barbeiro-update' barbeiro.pk %}">Editar</a></p>
-    <p><a href="{% url 'barbeiro-delete' barbeiro.pk %}">Excluir</a></p>
+        <p><strong>ID do Barbeiro:</strong> {{ barbeiro.idBarbeiro }}</p>
+        <p><strong>Nome:</strong> {{ barbeiro.NomeBarbeiro }}</p>
+        <p><strong>Telefone:</strong> {{ barbeiro.telefoneBarbeiro }}</p>
+        <p><strong>Foto:</strong></p>
+        <p><img src="{{ barbeiro.fotoBarbeiro }}" alt="Foto do Barbeiro"></p>
+        
+        <!-- Adicione outras informações do barbeiro conforme necessário -->
+        
+        <p><a href="{% url 'barbeiro-update' barbeiro.pk %}">Editar</a></p>
+        <p><a href="{% url 'barbeiro-delete' barbeiro.pk %}">Excluir</a></p>
+    </div>
 </body>
 </html>

@@ -8,7 +8,18 @@ from django.views.generic import TemplateView
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.forms import UserCreationForm
 from django.views.generic.edit import CreateView
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 
+from django.http import HttpResponse
+from django.template.loader import render_to_string
+from django.views import View
+
+class RenderTemplateView(View):
+    def get(self, request, template_name):
+        # Renderiza o template
+        html = render_to_string(template_name + '.html', context={}, request=request)
+        return HttpResponse(html)
 
 class SignUpView(CreateView):
     form_class = UserCreationForm
@@ -20,6 +31,7 @@ class CustomLoginView(LoginView):
     template_name = 'login.html'
 
 
+@method_decorator(login_required, name='dispatch')
 class HomeView(TemplateView):
     template_name = 'home.html'
 
@@ -29,6 +41,7 @@ class HomeView(TemplateView):
         context['barbearias'] = Barbearia.objects.all()
         context['clientes'] = Cliente.objects.all()
         return context
+
 
 # Views para o modelo Barbeiro
 class BarbeiroListView(ListView):
@@ -55,6 +68,7 @@ class BarbeiroUpdateView(UpdateView):
     model = Barbeiro
     template_name = 'barbeiro_form.html'  # Substitua pelo nome do seu template
     fields = '__all__'
+    success_url = reverse_lazy('barbeiro-list')
 
 class BarbeiroDeleteView(DeleteView):
     model = Barbeiro

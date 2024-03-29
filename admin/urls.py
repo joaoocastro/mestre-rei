@@ -26,11 +26,14 @@ urlpatterns = [
     path('login/', CustomLoginView.as_view(), name='login'),
     path('logout/', LogoutView.as_view(), name='logout'),
     path('signup/', SignUpView.as_view(), name='signup'),
+    path('render_template/<str:template_name>/', RenderTemplateView.as_view(), name='render_template'),
     
     path('barbeiros/', BarbeiroListView.as_view(), name='barbeiro-list'),
     path('barbeiros/<int:pk>/', BarbeiroDetailView.as_view(), name='barbeiro-detail'),
     path('barbeiros/add/', BarbeiroCreateView.as_view(), name='barbeiro-add'),
     path('barbeiros/<int:pk>/update/', BarbeiroUpdateView.as_view(), name='barbeiro-update'),
     path('barbeiros/<int:pk>/delete/', BarbeiroDeleteView.as_view(), name='barbeiro-delete'),
+    
+    
 ]
 
