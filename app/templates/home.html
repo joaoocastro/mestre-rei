@@ -79,8 +79,8 @@
                 <li>
                     Clientes
                     <ul>
+                        <li><a href="#" onclick="showDetails('clientes-list')">Listar Clientes</a></li>
                         <li><a href="{% url 'cliente-add' %}">Cadastrar Cliente</a></li>
-                        <li><a href="#cliente_list" onclick="showDetails('clientes-list')">Listar Clientes</a></li>
                     </ul>
                 </li>
                 <!-- Adicione outros modelos aqui -->
@@ -106,7 +106,7 @@
                 </ul>
             </div>
             
-            <div id="clientes" class="hidden">
+            <div id="clientes-list" class="hidden">
                 <h2>Clientes</h2>
                 <ul>
                     {% for cliente in clientes %}
