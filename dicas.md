@@ -8,6 +8,10 @@ Set-ExecutionPolicy RemoteSigned
 
 
 ## GIT
+git status (ver arquivos alterados)
 git add .
 git commit -m 'mensagem'
-git push
+git push (rmpurrar, enviar)
+
+# GIT PEGAR DA NUVEM
+git pull (pegar, puxar)

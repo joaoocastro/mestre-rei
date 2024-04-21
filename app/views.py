@@ -10,7 +10,6 @@ from django.contrib.auth.forms import UserCreationForm
 from django.views.generic.edit import CreateView
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
-
 from django.http import HttpResponse
 from django.template.loader import render_to_string
 from django.views import View

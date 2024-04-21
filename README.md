@@ -12,7 +12,6 @@ python manage.py runserver
 
 # com o servidor iniciado vá aos endereços
 http://localhost:8000/
-http://localhost:8000/admin
 http://localhost:8000/login
 http://localhost:8000/signup
 http://localhost:8000/barbeiros
