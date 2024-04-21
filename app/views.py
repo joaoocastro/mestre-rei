@@ -89,11 +89,17 @@ class BarbeariaCreateView(CreateView):
     model = Barbearia
     template_name = 'barbearia_form.html'
     fields = '__all__'
+    success_url = reverse_lazy('barbearia-add')
+    
+    def form_valid(self, form):
+        messages.success(self.request, 'Barbearia cadastrada com sucesso!')
+        return super().form_valid(form)
 
 class BarbeariaUpdateView(UpdateView):
     model = Barbearia
     template_name = 'barbearia_form.html'
     fields = '__all__'
+    success_url = reverse_lazy('barbearia-list')
 
 class BarbeariaDeleteView(DeleteView):
     model = Barbearia
