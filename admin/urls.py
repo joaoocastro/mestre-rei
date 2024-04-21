@@ -33,6 +33,9 @@ urlpatterns = [
     path('barbeiros/add/', BarbeiroCreateView.as_view(), name='barbeiro-add'),
     path('barbeiros/<int:pk>/update/', BarbeiroUpdateView.as_view(), name='barbeiro-update'),
     path('barbeiros/<int:pk>/delete/', BarbeiroDeleteView.as_view(), name='barbeiro-delete'),
+
+    path('cliente/', ClienteListView.as_view(), name='cliente-list'),
+    path('cliente/add/', ClienteCreateView.as_view(), name='cliente-add'),
     
     
 ]

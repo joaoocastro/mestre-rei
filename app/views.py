@@ -115,11 +115,19 @@ class ClienteCreateView(CreateView):
     model = Cliente
     template_name = 'cliente_form.html'
     fields = '__all__'
+    success_url = reverse_lazy('cliente-add')  # Redireciona para a mesma página para cadastrar outro cliente
+
+    def form_valid(self, form):
+        messages.success(self.request, 'Cliente cadastrado com sucesso!')
+        return super().form_valid(form)
+
+
 
 class ClienteUpdateView(UpdateView):
     model = Cliente
     template_name = 'cliente_form.html'
     fields = '__all__'
+    success_url = reverse_lazy('client-list')
 
 class ClienteDeleteView(DeleteView):
     model = Cliente
