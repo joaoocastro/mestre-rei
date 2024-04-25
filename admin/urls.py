@@ -34,8 +34,11 @@ urlpatterns = [
     path('barbeiros/<int:pk>/update/', BarbeiroUpdateView.as_view(), name='barbeiro-update'),
     path('barbeiros/<int:pk>/delete/', BarbeiroDeleteView.as_view(), name='barbeiro-delete'),
 
-    path('cliente/', ClienteListView.as_view(), name='cliente-list'),
-    path('cliente/add/', ClienteCreateView.as_view(), name='cliente-add'),
+    path('clientes/', ClienteListView.as_view(), name='cliente-list'),
+    path('clientes/<int:pk>/', ClienteDetailView.as_view(), name='cliente-detail'),  # Detalhes de um cliente
+    path('clientes/add/', ClienteCreateView.as_view(), name='cliente-add'),
+    path('clientes/<int:pk>/update/', ClienteUpdateView.as_view(), name='cliente-update'),  # Atualizar um cliente existente
+    path('clientes/<int:pk>/delete/', ClienteDeleteView.as_view(), name='cliente-delete'),  # Deletar um cliente existente
     
     path('barbearias/', BarbeariaListView.as_view(), name='barbearia-list'),  # Listar barbearias
     path('barbearias/<int:pk>/', BarbeariaDetailView.as_view(), name='barbearia-detail'),  # Detalhes da barbearia
