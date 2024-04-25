@@ -1,29 +1,46 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detalhes do Cliente</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
-            margem: 0;
-            acolchoamento: 0;
+            margin: 0;
+            padding: 0;
         }
         .container {
-            largura máxima: 800px;
-            margem: 20px auto;
-            fundo: branco;
-            acolchoamento: 20px;
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
             border-radius: 5px;
-            sombra: caixa 0 0 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
         h1 {
-            texto alinhado ao centro;
-            margem inferior: 20px;
+            text-align: center;
+            margin-bottom: 20px;
         }
         p {
-            margem: 10px 0;
+            margin-bottom: 10px;
+        }
+        strong {
+            font-weight: bold;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+        a {
+            color: #007bff;
+            text-decoration: none;
+            margin-right: 10px;
+        }
+        a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
@@ -31,9 +48,15 @@
     <div class="container">
         <h1>Detalhes do Cliente</h1>
 
-        <p><strong>Nome:</strong> {{ cliente.nomeCliente }}</p>
+        <p><strong>ID do Cliente:</strong> {{ cliente.id }}</p>
+        <p><strong>Nome:</strong> {{ cliente.nome }}</p>
         <p><strong>Telefone:</strong> {{ cliente.telefone }}</p>
         <p><strong>Email:</strong> {{ cliente.email }}</p>
+        
+        <!-- Adicione outras informações do cliente conforme necessário -->
+        
+        <p><a href="{% url 'cliente-update' cliente.pk %}">Editar</a></p>
+        <p><a href="{% url 'cliente-delete' cliente.pk %}">Excluir</a></p>
     </div>
 </body>
 </html>
