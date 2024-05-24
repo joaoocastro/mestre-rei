@@ -1,4 +1,3 @@
-# comando para o terminal funcionar
 Set-ExecutionPolicy RemoteSigned
 
 # dentro da pasta mestre-rei inicie o ambiente virtual do python

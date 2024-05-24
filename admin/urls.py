@@ -20,6 +20,7 @@ from app.views import * # importar todas as views para uso aqui nas urls
 from django.contrib.auth.views import LoginView, LogoutView
 
 
+
 urlpatterns = [
     path('admin/', admin.site.urls), #administrador
     path('', HomeView.as_view(), name='home'), # home

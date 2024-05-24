@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de Barbearias</title>
+    <title>Lista de Registros de Trabalho</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -41,12 +41,14 @@
 </head>
 <body>
     <div class="container">
-        <h1>Lista de Barbearias</h1>
+        <h1>Lista de Registros de Trabalho</h1>
 
         <ul>
-            {% for barbearia in barbearias %}
+            {% for trabalho in trabalhos %}
                 <li>
-                    <a href="{% url 'barbearia-detail'  barbearia.idBarbearia %}">{{ barbearia.nomeBarbearia }}</a>
+                    <a href="{% url 'trabalha-detail' trabalho.pk %}">
+                        Barbeiro: {{ trabalho.barbeiro.NomeBarbeiro }} - Barbearia: {{ trabalho.barbearia.nomeBarbearia }} ({{ trabalho.dataInicio }} a {{ trabalho.dataTermino }})
+                    </a>
                 </li>
             {% endfor %}
         </ul>

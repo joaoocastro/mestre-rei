@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Confirmar Exclusão da Barbearia</title>
+    <title>Confirmar Exclusão do Registro de Trabalho</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -53,16 +53,16 @@
 </head>
 <body>
     <div class="container">
-        <h1>Confirmar Exclusão da Barbearia</h1>
+        <h1>Confirmar Exclusão do Registro de Trabalho</h1>
 
-        <p>Você tem certeza que deseja excluir a barbearia "{{ barbearia.nome }}"?</p>
+        <p>Você tem certeza que deseja excluir o registro de trabalho do barbeiro "{{ trabalha.barbeiro.NomeBarbeiro }}" na barbearia "{{ trabalha.barbearia.nomeBarbearia }}"?</p>
 
         <form method="post">
             {% csrf_token %}
             <button type="submit">Confirmar Exclusão</button>
         </form>
 
-        <p><a href="{% url 'barbearia-detail' barbearia.pk %}">Cancelar</a></p>
+        <p><a href="{% url 'trabalha-detail' trabalha.pk %}">Cancelar</a></p>
     </div>
 </body>
 </html>

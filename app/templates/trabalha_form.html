@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adicionar Registro de Trabalho</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        input, select {
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-bottom: 10px;
+        }
+        button {
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Adicionar Registro de Trabalho</h1>
+        
+        <form method="post">
+            {% csrf_token %}
+            
+            <label for="id_barbeiro">Barbeiro:</label>
+            {{ form.barbeiro }}
+
+            <label for="id_barbearia">Barbearia:</label>
+            {{ form.barbearia }}
+            
+            <label for="id_dataInicio">Data de Início:</label>
+            {{ form.dataInicio }}
+
+            <label for="id_dataTermino">Data de Término:</label>
+            {{ form.dataTermino }}
+
+            <button type="submit">Adicionar</button>
+        </form>
+    </div>
+</body>
+</html>
