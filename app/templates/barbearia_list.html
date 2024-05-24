@@ -46,7 +46,7 @@
         <ul>
             {% for barbearia in barbearias %}
                 <li>
-                    <a href="{% url 'barbearia-detail'  barbearia.idBarbearia %}">{{ barbearia.nomeBarbearia }}</a>
+                    <a href="{% url 'barbearia-detail'  barbearia.idBarbearia %}">{{ barbearia.nome }}</a>
                 </li>
             {% endfor %}
         </ul>
