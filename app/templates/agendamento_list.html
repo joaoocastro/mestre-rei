@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de Trabalhos</title>
+    <title>Lista de Agendamentos</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -37,19 +37,28 @@
         a:hover {
             text-decoration: underline;
         }
+        .add-agendamento {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Lista de Trabalhos</h1>
+        <h1>Lista de Agendamentos</h1>
 
         <ul>
-            {% for trabalho in trabalhos %}
+            {% for agendamento in agendamentos %}
                 <li>
-                    <a href="{% url 'trabalha-detail' trabalho.pk %}">{{ trabalho.idBarbeiro.NomeBarbeiro }} trabalha na = {{ trabalho.idBarbearia.nome }}</a>
+                    <a href="{% url 'agendamento-detail' agendamento.idAgendamento %}">
+                        {{ agendamento.dataCompleta }} - {{ agendamento.idCliente.nome }} com {{ agendamento.idBarbeiro.nome }} na {{ agendamento.idBarbearia.nome }}
+                    </a>
                 </li>
             {% endfor %}
         </ul>
+
+        <a class="add-agendamento" href="{% url 'agendamento-add' %}">Adicionar Novo Agendamento</a>
     </div>
 </body>
 </html>

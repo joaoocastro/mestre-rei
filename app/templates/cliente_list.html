@@ -46,7 +46,7 @@
         <ul>
             {% for cliente in clientes %}
                 <li>
-                    <a href="{% url 'cliente-list' cliente.pk %}">{{ Cliente.NomeCliente }}</a>
+                    <a href="{% url 'cliente-list' cliente.pk %}">{{ cliente.NomeCliente }}</a>
                 </li>
             {% endfor %}
         </ul>

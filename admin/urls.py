@@ -46,6 +46,12 @@ urlpatterns = [
     path('barbearias/add/', BarbeariaCreateView.as_view(), name='barbearia-add'),  # Adicionar nova barbearia
     path('barbearias/<int:pk>/update/', BarbeariaUpdateView.as_view(), name='barbearia-update'),  # Atualizar barbearia
     path('barbearias/<int:pk>/delete/', BarbeariaDeleteView.as_view(), name='barbearia-delete'),  # Deletar barbearia
+    
+    path('trabalhos/', TrabalhaListView.as_view(), name='trabalha-list'),  # Listar 'trabalhas'
+    path('trabalhos/<int:pk>/', TrabalhaDetailView.as_view(), name='trabalha-detail'),  # Detalhes de um 'trabalha'
+    path('trabalhos/add/', TrabalhaCreateView.as_view(), name='trabalha-add'),  # Adicionar novo 'trabalha'
+    path('trabalhos/<int:pk>/update/', TrabalhaUpdateView.as_view(), name='trabalha-update'),  # Atualizar 'trabalha'
+    path('trabalhos/<int:pk>/delete/', TrabalhaDeleteView.as_view(), name='trabalha-delete'),  # Deletar 'trabalha'
 
 ]
 
