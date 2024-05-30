@@ -20,6 +20,7 @@ from app.views import * # importar todas as views para uso aqui nas urls
 from django.contrib.auth.views import LoginView, LogoutView
 
 
+
 urlpatterns = [
     path('admin/', admin.site.urls), #administrador
     path('', HomeView.as_view(), name='home'), # home
@@ -34,9 +35,30 @@ urlpatterns = [
     path('barbeiros/<int:pk>/update/', BarbeiroUpdateView.as_view(), name='barbeiro-update'),
     path('barbeiros/<int:pk>/delete/', BarbeiroDeleteView.as_view(), name='barbeiro-delete'),
 
-    path('cliente/', ClienteListView.as_view(), name='cliente-list'),
-    path('cliente/add/', ClienteCreateView.as_view(), name='cliente-add'),
+    path('clientes/', ClienteListView.as_view(), name='cliente-list'),
+    path('clientes/<int:pk>/', ClienteDetailView.as_view(), name='cliente-detail'),  # Detalhes de um cliente
+    path('clientes/add/', ClienteCreateView.as_view(), name='cliente-add'),
+    path('clientes/<int:pk>/update/', ClienteUpdateView.as_view(), name='cliente-update'),  # Atualizar um cliente existente
+    path('clientes/<int:pk>/delete/', ClienteDeleteView.as_view(), name='cliente-delete'),  # Deletar um cliente existente
     
+    path('barbearias/', BarbeariaListView.as_view(), name='barbearia-list'),  # Listar barbearias
+    path('barbearias/<int:pk>/', BarbeariaDetailView.as_view(), name='barbearia-detail'),  # Detalhes da barbearia
+    path('barbearias/add/', BarbeariaCreateView.as_view(), name='barbearia-add'),  # Adicionar nova barbearia
+    path('barbearias/<int:pk>/update/', BarbeariaUpdateView.as_view(), name='barbearia-update'),  # Atualizar barbearia
+    path('barbearias/<int:pk>/delete/', BarbeariaDeleteView.as_view(), name='barbearia-delete'),  # Deletar barbearia
     
+    path('trabalhos/', TrabalhaListView.as_view(), name='trabalha-list'),  # Listar 'trabalhas'
+    path('trabalhos/<int:pk>/', TrabalhaDetailView.as_view(), name='trabalha-detail'),  # Detalhes de um 'trabalha'
+    path('trabalhos/add/', TrabalhaCreateView.as_view(), name='trabalha-add'),  # Adicionar novo 'trabalha'
+    path('trabalhos/<int:pk>/update/', TrabalhaUpdateView.as_view(), name='trabalha-update'),  # Atualizar 'trabalha'
+    path('trabalhos/<int:pk>/delete/', TrabalhaDeleteView.as_view(), name='trabalha-delete'),  # Deletar 'trabalha'
+
+    path('agendamentos/', AgendamentoListView.as_view(), name='agendamento-list'),
+    path('agendamentos/<int:pk>/', AgendamentoDetailView.as_view(), name='agendamento-detail'),
+    path('agendamentos/add/', AgendamentoCreateView.as_view(), name='agendamento-add'),
+    path('agendamentos/<int:pk>/update/', AgendamentoUpdateView.as_view(), name='agendamento-update'),
+    path('agendamentos/<int:pk>/delete/', AgendamentoDeleteView.as_view(), name='agendamento-delete'),
+
+
 ]
 

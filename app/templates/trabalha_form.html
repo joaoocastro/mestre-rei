@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Adicionar Barbearia</title>
+    <title>Adicionar Registro de Trabalho</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -31,14 +31,11 @@
             font-weight: bold;
             margin-bottom: 5px;
         }
-        input {
+        input, select {
             padding: 10px;
             border-radius: 5px;
-            border: 1px sólido #ccc;
+            border: 1px solid #ccc;
             margin-bottom: 10px;
-        }
-        input[type="time"] {
-            width: 100%;
         }
         button {
             background-color: #4caf50;
@@ -52,28 +49,39 @@
         button:hover {
             background-color: #45a049;
         }
+        .success-message {
+            display: none;
+            color: green;
+            font-weight: bold;
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Adicionar Barbearia</h1>
+        <h1>Adicionar Registro de Trabalho</h1>
         
-        <form method="post">
+        <form id="add-form" method="post" action="{% url 'trabalha-add' %}">
             {% csrf_token %}
-            <label para="id_nome">Nome:</label>
-            {{ form.nome }}
+            
+            <label for="id_barbeiro">Selecione o Barbeiro:</label>
+            <select name="idBarbeiro" id="id_barbeiro">
+                {% for barbeiro in barbeiros %}
+                    <option value="{{ barbeiro.idBarbeiro }}">{{ barbeiro.NomeBarbeiro }}</option>
+                {% endfor %}
+            </select>
 
-            <label para="id_endereco">Endereço:</label>
-            {{ form.endereco }}
-
-            <label para="id_hrAbertura">Horário de Abertura:</label>
-            {{ form.hrAbertura }}
-
-            <label para="id_hrFechamento">Horário de Fechamento:</label>
-            {{ form.hrFechamento }}
-
-            <button type="submit">Adicionar</button>
+            <label for="id_barbearia">Selecione a Barbearia:</label>
+            <select name="idBarbearia" id="id_barbearia">
+                {% for barbearia in barbearias %}
+                    <option value="{{ barbearia.idBarbearia }}">{{ barbearia.nome }}</option>
+                {% endfor %}
+            </select>
+            
+            <button type="submit" id="submit-btn">Adicionar</button>
         </form>
+        
+        <div class="success-message" id="success-msg">Trabalho cadastrado com sucesso!</div>
     </div>
 </body>
 </html>

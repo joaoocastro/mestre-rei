@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de Clientes</title>
+    <title>Detalhes do Registro de Trabalho</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -23,16 +23,16 @@
             text-align: center;
             margin-bottom: 20px;
         }
-        ul {
-            list-style: none;
-            padding: 0;
-        }
-        li {
+        p {
             margin-bottom: 10px;
+        }
+        strong {
+            font-weight: bold;
         }
         a {
             color: #007bff;
             text-decoration: none;
+            margin-right: 10px;
         }
         a:hover {
             text-decoration: underline;
@@ -41,15 +41,19 @@
 </head>
 <body>
     <div class="container">
-        <h1>Lista de Clientes</h1>
+        <h1>Detalhes do Registro de Trabalho</h1>
 
-        <ul>
-            {% for cliente in clientes %}
-                <li>
-                    <a href="{% url 'cliente-detail' cliente.idCliente %}">{{ cliente.nomeCliente }}</a>
-                </li>
-            {% endfor %}
-        </ul>
+        {% if trabalha.idBarbeiro %}
+            <p><strong>Barbeiro:</strong> <a href="{% url 'barbeiro-detail' trabalha.idBarbeiro.pk %}">{{ trabalha.idBarbeiro.NomeBarbeiro }}</a></p>
+        {% endif %}
+        {% if trabalha.idBarbearia %}
+            <p><strong>Barbearia:</strong> <a href="{% url 'barbearia-detail' trabalha.idBarbearia.pk %}">{{ trabalha.idBarbearia.nome }}</a></p>
+        {% endif %}
+
+        <!-- Adicione outras informações do registro de trabalho conforme necessário -->
+        
+        <p><a href="{% url 'trabalha-update' trabalha.pk %}">Editar</a></p>
+        <p><a href="{% url 'trabalha-delete' trabalha.pk %}">Excluir</a></p>
     </div>
 </body>
 </html>

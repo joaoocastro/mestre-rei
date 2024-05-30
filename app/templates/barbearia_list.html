@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de Clientes</title>
+    <title>Lista de Barbearias</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -41,12 +41,12 @@
 </head>
 <body>
     <div class="container">
-        <h1>Lista de Clientes</h1>
+        <h1>Lista de Barbearias</h1>
 
         <ul>
-            {% for cliente in clientes %}
+            {% for barbearia in barbearias %}
                 <li>
-                    <a href="{% url 'cliente-detail' cliente.idCliente %}">{{ cliente.nomeCliente }}</a>
+                    <a href="{% url 'barbearia-detail'  barbearia.idBarbearia %}">{{ barbearia.nome }}</a>
                 </li>
             {% endfor %}
         </ul>

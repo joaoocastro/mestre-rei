@@ -13,6 +13,7 @@ from django.utils.decorators import method_decorator
 from django.http import HttpResponse
 from django.template.loader import render_to_string
 from django.views import View
+from django.shortcuts import get_object_or_404
 
 class RenderTemplateView(View):
     def get(self, request, template_name):
@@ -39,6 +40,8 @@ class HomeView(TemplateView):
         context['barbeiros'] = Barbeiro.objects.all()
         context['barbearias'] = Barbearia.objects.all()
         context['clientes'] = Cliente.objects.all()
+        context['trabalhos'] = Trabalha.objects.all()
+        context['agendamentos'] = Agendamento.objects.all()
         return context
 
 
@@ -89,11 +92,17 @@ class BarbeariaCreateView(CreateView):
     model = Barbearia
     template_name = 'barbearia_form.html'
     fields = '__all__'
+    success_url = reverse_lazy('barbearia-add')
+    
+    def form_valid(self, form):
+        messages.success(self.request, 'Barbearia cadastrada com sucesso!')
+        return super().form_valid(form)
 
 class BarbeariaUpdateView(UpdateView):
     model = Barbearia
     template_name = 'barbearia_form.html'
     fields = '__all__'
+    success_url = reverse_lazy('barbearia-list')
 
 class BarbeariaDeleteView(DeleteView):
     model = Barbearia
@@ -122,12 +131,11 @@ class ClienteCreateView(CreateView):
         return super().form_valid(form)
 
 
-
 class ClienteUpdateView(UpdateView):
     model = Cliente
     template_name = 'cliente_form.html'
     fields = '__all__'
-    success_url = reverse_lazy('client-list')
+    success_url = reverse_lazy('cliente-list')
 
 class ClienteDeleteView(DeleteView):
     model = Cliente
@@ -138,7 +146,7 @@ class ClienteDeleteView(DeleteView):
 class TrabalhaListView(ListView):
     model = Trabalha
     template_name = 'trabalha_list.html'
-    context_object_name = 'trabalhas'
+    context_object_name = 'trabalhos'
 
 class TrabalhaDetailView(DetailView):
     model = Trabalha
@@ -149,11 +157,33 @@ class TrabalhaCreateView(CreateView):
     model = Trabalha
     template_name = 'trabalha_form.html'
     fields = '__all__'
+    success_url = reverse_lazy('trabalha-add')
+    
+    # permite mostrar lista com barbeiros e barbearias no front
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['barbeiros'] = Barbeiro.objects.all()
+        context['barbearias'] = Barbearia.objects.all()
+        return context
 
+    def form_valid(self, form):
+        messages.success(self.request, 'Trabalho cadastrado com sucesso!')
+        return super().form_valid(form)
+    
 class TrabalhaUpdateView(UpdateView):
     model = Trabalha
     template_name = 'trabalha_form.html'
     fields = '__all__'
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['barbeiros'] = Barbeiro.objects.all()
+        context['barbearias'] = Barbearia.objects.all()
+        return context
+
+    def form_valid(self, form):
+        messages.success(self.request, 'Trabalho cadastrado com sucesso!')
+        return super().form_valid(form)
 
 class TrabalhaDeleteView(DeleteView):
     model = Trabalha
@@ -175,6 +205,18 @@ class AgendamentoCreateView(CreateView):
     model = Agendamento
     template_name = 'agendamento_form.html'
     fields = '__all__'
+    success_url = reverse_lazy('agendamento-add')  # Redireciona para a mesma página para cadastrar outro barbeiro
+
+    def get_context_data(self, **kwargs):
+            context = super().get_context_data(**kwargs)
+            context['barbeiros'] = Barbeiro.objects.all()
+            context['barbearias'] = Barbearia.objects.all()
+            context['clientes'] = Cliente.objects.all()
+            return context
+
+    def form_valid(self, form):
+        messages.success(self.request, 'Agendamento cadastrado com sucesso!')
+        return super().form_valid(form)
 
 class AgendamentoUpdateView(UpdateView):
     model = Agendamento

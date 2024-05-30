@@ -16,6 +16,7 @@ http://localhost:8000/login
 http://localhost:8000/signup
 http://localhost:8000/barbeiros
 http://localhost:8000/barbeiros/add
+http://localhost:8000/clientes/add/
 etc ...
 
 # comando para gerar as tabelas apos fazer alguma alteraçao no arquivo app/models.py

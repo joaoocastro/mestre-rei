@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Detalhes do Agendamento</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        p {
+            margin: 10px 0;
+        }
+        .actions {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .actions a {
+            margin: 0 10px;
+            text-decoration: none;
+            color: #007bff;
+        }
+        .actions a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Detalhes do Agendamento</h1>
+
+        <p><strong>Data Completa:</strong> {{ agendamento.dataCompleta }}</p>
+        <p><strong>Barbeiro:</strong> {{ agendamento.idBarbeiro.NomeBarbeiro }}</p>
+        <p><strong>Cliente:</strong> {{ agendamento.idCliente.nomeCliente }}</p>
+        <p><strong>Barbearia:</strong> {{ agendamento.idBarbearia.nome }}</p>
+
+        <div class="actions">
+            <a href="{% url 'agendamento-update' agendamento.pk %}">Editar</a>
+            <a href="{% url 'agendamento-delete' agendamento.pk %}">Excluir</a>
+            <a href="{% url 'agendamento-list' %}">Voltar à lista</a>
+        </div>
+    </div>
+</body>
+</html>

@@ -13,8 +13,8 @@ class Barbearia(models.Model):
     nome = models.CharField(max_length=255, null=False)
     endereco = models.CharField(max_length=255, blank=True, null=True)
     idBarbearia = models.AutoField(primary_key=True)
-    hrAbertura = models.DateField(null=True)
-    hrFechamento = models.DateField(null=True)
+    hrAbertura = models.CharField(max_length=255, blank=True, null=True)
+    hrFechamento = models.CharField(max_length=255, blank=True, null=True)
 
     def __str__(self):
         return self.nome
