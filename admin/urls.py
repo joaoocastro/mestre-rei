@@ -53,5 +53,12 @@ urlpatterns = [
     path('trabalhos/<int:pk>/update/', TrabalhaUpdateView.as_view(), name='trabalha-update'),  # Atualizar 'trabalha'
     path('trabalhos/<int:pk>/delete/', TrabalhaDeleteView.as_view(), name='trabalha-delete'),  # Deletar 'trabalha'
 
+    path('agendamentos/', AgendamentoListView.as_view(), name='agendamento-list'),
+    path('agendamentos/<int:pk>/', AgendamentoDetailView.as_view(), name='agendamento-detail'),
+    path('agendamentos/add/', AgendamentoCreateView.as_view(), name='agendamento-add'),
+    path('agendamentos/<int:pk>/update/', AgendamentoUpdateView.as_view(), name='agendamento-update'),
+    path('agendamentos/<int:pk>/delete/', AgendamentoDeleteView.as_view(), name='agendamento-delete'),
+
+
 ]
 

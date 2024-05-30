@@ -43,11 +43,11 @@
     <div class="container">
         <h1>Detalhes do Registro de Trabalho</h1>
 
-        {% if trabalha.barbeiro %}
-            <p><strong>Barbeiro:</strong> <a href="{% url 'barbeiro-detail' trabalha.barbeiro.idBarbeiro %}">{{ trabalha.barbeiro.NomeBarbeiro }}</a></p>
+        {% if trabalha.idBarbeiro %}
+            <p><strong>Barbeiro:</strong> <a href="{% url 'barbeiro-detail' trabalha.idBarbeiro.pk %}">{{ trabalha.idBarbeiro.NomeBarbeiro }}</a></p>
         {% endif %}
-        {% if trabalha.barbearia %}
-            <p><strong>Barbearia:</strong> <a href="{% url 'barbearia-detail' trabalha.barbearia.idBarbearia %}">{{ trabalha.barbearia.nome }}</a></p>
+        {% if trabalha.idBarbearia %}
+            <p><strong>Barbearia:</strong> <a href="{% url 'barbearia-detail' trabalha.idBarbearia.pk %}">{{ trabalha.idBarbearia.nome }}</a></p>
         {% endif %}
 
         <!-- Adicione outras informações do registro de trabalho conforme necessário -->

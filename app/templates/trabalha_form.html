@@ -61,44 +61,27 @@
     <div class="container">
         <h1>Adicionar Registro de Trabalho</h1>
         
-        <form method="post">
+        <form id="add-form" method="post" action="{% url 'trabalha-add' %}">
             {% csrf_token %}
             
-            <!-- Campos ocultos para os IDs do barbeiro e da barbearia -->
-            <input type="hidden" name="barbeiro_id" value="{{ barbeiro.id }}">
-            <input type="hidden" name="barbearia_id" value="{{ barbearia.id }}">
-            
             <label for="id_barbeiro">Selecione o Barbeiro:</label>
-            <select name="barbeiro" id="id_barbeiro">
+            <select name="idBarbeiro" id="id_barbeiro">
                 {% for barbeiro in barbeiros %}
-                    <option value="{{ barbeiro.id }}">{{ barbeiro.NomeBarbeiro }}</option>
+                    <option value="{{ barbeiro.idBarbeiro }}">{{ barbeiro.NomeBarbeiro }}</option>
                 {% endfor %}
             </select>
 
             <label for="id_barbearia">Selecione a Barbearia:</label>
-            <select name="barbearia" id="id_barbearia">
+            <select name="idBarbearia" id="id_barbearia">
                 {% for barbearia in barbearias %}
-                    <option value="{{ barbearia.id }}">{{ barbearia.nome }}</option>
+                    <option value="{{ barbearia.idBarbearia }}">{{ barbearia.nome }}</option>
                 {% endfor %}
             </select>
             
-            <button type="submit">Adicionar</button>
+            <button type="submit" id="submit-btn">Adicionar</button>
         </form>
         
         <div class="success-message" id="success-msg">Trabalho cadastrado com sucesso!</div>
     </div>
-
-    <script>
-        document.querySelector("form").addEventListener("submit", function(event) {
-            // Prevent the form from submitting normally
-            event.preventDefault();
-            // Show the success message
-            document.getElementById("success-msg").style.display = "block";
-            // Submit the form after a short delay (to allow the message to be seen)
-            setTimeout(function() {
-                document.querySelector("form").submit();
-            }, 1000);
-        });
-    </script>
 </body>
 </html>

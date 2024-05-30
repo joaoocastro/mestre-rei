@@ -40,8 +40,8 @@ class HomeView(TemplateView):
         context['barbeiros'] = Barbeiro.objects.all()
         context['barbearias'] = Barbearia.objects.all()
         context['clientes'] = Cliente.objects.all()
-        context['Trabalhos'] = Trabalha.objects.all()
-        context['Agendamento'] = Agendamento.objects.all()
+        context['trabalhos'] = Trabalha.objects.all()
+        context['agendamentos'] = Agendamento.objects.all()
         return context
 
 
@@ -131,12 +131,11 @@ class ClienteCreateView(CreateView):
         return super().form_valid(form)
 
 
-
 class ClienteUpdateView(UpdateView):
     model = Cliente
     template_name = 'cliente_form.html'
     fields = '__all__'
-    success_url = reverse_lazy('client-list')
+    success_url = reverse_lazy('cliente-list')
 
 class ClienteDeleteView(DeleteView):
     model = Cliente
@@ -154,31 +153,13 @@ class TrabalhaDetailView(DetailView):
     template_name = 'trabalha_detail.html'
     context_object_name = 'trabalha'
 
-
-
-# class TrabalhaCreateView(CreateView):
-#     model = Trabalha
-#     template_name = 'trabalha_form.html'
-#     fields = '__all__'
-#     success_url = reverse_lazy('trabalha-add')  # Redireciona para a mesma página para cadastrar trabalha
-
-#     def get_context_data(self, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         context['barbeiros'] = Barbeiro.objects.all()
-#         context['barbearias'] = Barbearia.objects.all()
-#         return context
-
-#     def form_valid(self, form):
-#         messages.success(self.request, 'Trabalhos cadastrado com sucesso!')
-#         return super().form_valid(form)
-
-
 class TrabalhaCreateView(CreateView):
     model = Trabalha
     template_name = 'trabalha_form.html'
     fields = '__all__'
-    success_url = reverse_lazy('trabalha-add')  # Redireciona para a mesma página para cadastrar trabalha
-
+    success_url = reverse_lazy('trabalha-add')
+    
+    # permite mostrar lista com barbeiros e barbearias no front
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['barbeiros'] = Barbeiro.objects.all()
@@ -186,28 +167,23 @@ class TrabalhaCreateView(CreateView):
         return context
 
     def form_valid(self, form):
-        # Salvar o formulário, mas não com commit=True, para evitar o envio prematuro do formulário
-        trabalha = form.save(commit=False)
-        
-        # Obter os IDs do barbeiro e da barbearia a partir do formulário
-        barbeiro_id = form.cleaned_data['barbeiro']
-        barbearia_id = form.cleaned_data['barbearia']
-
-        # Atribuir os IDs ao objeto Trabalha
-        trabalha.idBarbeiro_id = barbeiro_id
-        trabalha.idBarbearia_id = barbearia_id
-
-        # Salvar o objeto Trabalha com os IDs corretos
-        trabalha.save()
-
         messages.success(self.request, 'Trabalho cadastrado com sucesso!')
         return super().form_valid(form)
-
-
+    
 class TrabalhaUpdateView(UpdateView):
     model = Trabalha
     template_name = 'trabalha_form.html'
     fields = '__all__'
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['barbeiros'] = Barbeiro.objects.all()
+        context['barbearias'] = Barbearia.objects.all()
+        return context
+
+    def form_valid(self, form):
+        messages.success(self.request, 'Trabalho cadastrado com sucesso!')
+        return super().form_valid(form)
 
 class TrabalhaDeleteView(DeleteView):
     model = Trabalha
@@ -229,6 +205,18 @@ class AgendamentoCreateView(CreateView):
     model = Agendamento
     template_name = 'agendamento_form.html'
     fields = '__all__'
+    success_url = reverse_lazy('agendamento-add')  # Redireciona para a mesma página para cadastrar outro barbeiro
+
+    def get_context_data(self, **kwargs):
+            context = super().get_context_data(**kwargs)
+            context['barbeiros'] = Barbeiro.objects.all()
+            context['barbearias'] = Barbearia.objects.all()
+            context['clientes'] = Cliente.objects.all()
+            return context
+
+    def form_valid(self, form):
+        messages.success(self.request, 'Agendamento cadastrado com sucesso!')
+        return super().form_valid(form)
 
 class AgendamentoUpdateView(UpdateView):
     model = Agendamento
