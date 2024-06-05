@@ -33,7 +33,8 @@
 </head>
 
 <body>
-   <p"text-right><div class="logout-container">
+   
+    <div class="logout-container">
         {% if user.is_authenticated %}
             <form action="{% url 'logout' %}" method="post">
                 {% csrf_token %}
@@ -43,7 +44,7 @@
             <a href="{% url 'login' %}"><button class="logout-button">Login</button></a>
             <a href="{% url 'register' %}"><button class="logout-button">Cadastra-se</button></a>
         {% endif %}
-    </div></p> 
+    </div>
 
     <img src="static/banner.png" alt="banner da barbearia" />
 
