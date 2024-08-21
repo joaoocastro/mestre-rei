@@ -1,0 +1,29 @@
+{% extends 'base_generic.html' %}
+
+{% block title %}Listar Agendas{% endblock %}
+
+{% block content %}
+<h2>Listar Agendas</h2>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Barbearia</th>
+            <th>Nome</th>
+            <th>Barbeiro</th>
+            <th>Data</th>
+            <th>Horário</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for agenda in agendas %}
+        <tr>
+            <td>{{ agenda.barbearia }}</td>
+            <td>{{ agenda.nome }}</td>
+            <td>{{ agenda.barbeiro }}</td>
+            <td>{{ agenda.data }}</td>
+            <td>{{ agenda.get_horario_display }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

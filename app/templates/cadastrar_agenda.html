@@ -1,0 +1,23 @@
+{% extends 'base_generic.html' %}
+
+{% block title %}Cadastrar Nova Agenda{% endblock %}
+
+{% block content %}
+<h2>Cadastrar Nova Agenda</h2>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="mb-3">
+        <label for="id_barbeiro" class="form-label">Barbeiro</label>
+        {{ form.barbeiro }}
+    </div>
+    <div class="mb-3">
+        <label for="id_data" class="form-label">Data</label>
+        {{ form.data }}
+    </div>
+    <div class="mb-3">
+        <label for="id_horario" class="form-label">Horário</label>
+        {{ form.horario }}
+    </div>
+    <button type="submit" class="btn btn-primary">Salvar</button>
+</form>
+{% endblock %}

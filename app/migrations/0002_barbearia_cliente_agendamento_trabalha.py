@@ -3,7 +3,6 @@
 import django.db.models.deletion
 from django.db import migrations, models
 
-
 class Migration(migrations.Migration):
 
     dependencies = [
@@ -14,40 +13,63 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Barbearia',
             fields=[
+                ('id', models.AutoField(primary_key=True, serialize=False)),
                 ('nome', models.CharField(max_length=255)),
-                ('endereco', models.CharField(blank=True, max_length=255, null=True)),
-                ('idBarbearia', models.AutoField(primary_key=True, serialize=False)),
-                ('hrAbertura', models.DateField(null=True)),
-                ('hrFechamento', models.DateField(null=True)),
+                ('endereco', models.CharField(max_length=255, blank=True, null=True)),
+                ('horario_abertura', models.TimeField(null=True, blank=True)),
+                ('horario_fechamento', models.TimeField(null=True, blank=True)),
             ],
         ),
         migrations.CreateModel(
             name='Cliente',
             fields=[
-                ('idCliente', models.AutoField(primary_key=True, serialize=False)),
+                ('id', models.AutoField(primary_key=True, serialize=False)),
                 ('nomeCliente', models.CharField(max_length=255)),
-                ('telefoneCliente', models.CharField(blank=True, max_length=255, null=True)),
-                ('emailCliente', models.CharField(blank=True, max_length=255, null=True)),
-                ('sexoCliente', models.CharField(blank=True, max_length=1, null=True)),
-                ('barbeiroPreferido', models.CharField(blank=True, max_length=255, null=True)),
-                ('fotoCliente', models.CharField(blank=True, max_length=255, null=True)),
-            ],
-        ),
-        migrations.CreateModel(
-            name='Agendamento',
-            fields=[
-                ('dataCompleta', models.DateField()),
-                ('idAgendamento', models.AutoField(primary_key=True, serialize=False)),
-                ('idBarbeiro', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='app.barbeiro')),
-                ('idBarbearia', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='app.barbearia')),
-                ('idCliente', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='app.cliente')),
+                ('telefone', models.CharField(max_length=20, blank=True, null=True)),
+                ('email', models.EmailField(max_length=255, blank=True, null=True)),
+                ('sexo', models.CharField(max_length=1, choices=[('M', 'Masculino'), ('F', 'Feminino')], blank=True, null=True)),
+                ('barbeiro_preferido', models.ForeignKey(null=True, blank=True, on_delete=django.db.models.deletion.SET_NULL, to='app.barbeiro')),
+                ('fotoCliente', models.ImageField(upload_to='static/clientes', blank=True, null=True)),
             ],
         ),
         migrations.CreateModel(
             name='Trabalha',
             fields=[
-                ('idBarbeiro', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, primary_key=True, serialize=False, to='app.barbeiro')),
-                ('idBarbearia', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='app.barbearia')),
+                ('barbeiro', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='app.barbeiro')),
+                ('barbearia', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='app.barbearia')),
+            ],
+            options={
+                'unique_together': {('barbeiro', 'barbearia')},
+            },
+        ),
+        migrations.CreateModel(
+            name='Agenda',
+            fields=[
+                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('data', models.DateField()),
+                ('horario', models.CharField(
+                    choices=[
+                        ('08:00-09:00', '08:00 às 09:00'),
+                        ('09:00-10:00', '09:00 às 10:00'),
+                        ('10:00-11:00', '10:00 às 11:00'),
+                        ('13:00-14:00', '13:00 às 14:00'),
+                        ('14:00-15:00', '14:00 às 15:00'),
+                        ('15:00-16:00', '15:00 às 16:00'),
+                        ('16:00-17:00', '16:00 às 17:00'),
+                        ('17:00-18:00', '17:00 às 18:00'),
+                        ('18:00-19:00', '18:00 às 19:00'),
+                    ],
+                    max_length=11
+                )),
+                ('barbeiro', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='app.barbeiro')),
+            ],
+        ),
+        migrations.CreateModel(
+            name='Agendamento',
+            fields=[
+                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('agenda', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='app.agenda', verbose_name='Agenda')),
+                ('cliente', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='app.cliente', verbose_name='Cliente')),
             ],
         ),
     ]

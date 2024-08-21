@@ -1,19 +1,18 @@
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render, redirect
 from django.views import View
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView
 from django.urls import reverse_lazy
-from .models import Barbeiro, Barbearia, Cliente, Trabalha, Agendamento
 from django.contrib import messages
-from django.views.generic import TemplateView
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.forms import UserCreationForm
-from django.views.generic.edit import CreateView
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.http import HttpResponse
 from django.template.loader import render_to_string
-from django.views import View
-from django.shortcuts import get_object_or_404
+
+from .models import Agenda, Barbeiro, Barbearia, Cliente, Trabalha, Agendamento
+from .forms import AgendamentoForm, AgendaForm, TrabalhaForm
+
 
 class RenderTemplateView(View):
     def get(self, request, template_name):
@@ -190,40 +189,28 @@ class TrabalhaDeleteView(DeleteView):
     template_name = 'trabalha_confirm_delete.html'
     success_url = reverse_lazy('trabalha-list')
 
+
 # Views para o modelo Agendamento (repita o padrão semelhante ao modelo Barbeiro)
-class AgendamentoListView(ListView):
-    model = Agendamento
-    template_name = 'agendamento_list.html'
-    context_object_name = 'agendamentos'
+def listar_agenda(request):
+    agendas = Agenda.objects.all()
+    return render(request, 'listar_agenda.html', {'agendas': agendas})
 
-class AgendamentoDetailView(DetailView):
-    model = Agendamento
-    template_name = 'agendamento_detail.html'
-    context_object_name = 'agendamento'
+def cadastrar_agenda(request):
+    if request.method == "POST":
+        form = AgendaForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('listar_agenda')
+    else:
+        form = AgendaForm()
+    return render(request, 'cadastrar_agenda.html', {'form': form})
 
-class AgendamentoCreateView(CreateView):
-    model = Agendamento
-    template_name = 'agendamento_form.html'
-    fields = '__all__'
-    success_url = reverse_lazy('agendamento-add')  # Redireciona para a mesma página para cadastrar outro barbeiro
-
-    def get_context_data(self, **kwargs):
-            context = super().get_context_data(**kwargs)
-            context['barbeiros'] = Barbeiro.objects.all()
-            context['barbearias'] = Barbearia.objects.all()
-            context['clientes'] = Cliente.objects.all()
-            return context
-
-    def form_valid(self, form):
-        messages.success(self.request, 'Agendamento cadastrado com sucesso!')
-        return super().form_valid(form)
-
-class AgendamentoUpdateView(UpdateView):
-    model = Agendamento
-    template_name = 'agendamento_form.html'
-    fields = '__all__'
-
-class AgendamentoDeleteView(DeleteView):
-    model = Agendamento
-    template_name = 'agendamento_confirm_delete.html'
-    success_url = reverse_lazy('agendamento-list')
+def cadastrar_agendamento(request):
+    if request.method == "POST":
+        form = AgendamentoForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('pagina_inicial')
+    else:
+        form = AgendamentoForm()
+    return render(request, 'cadastrar_agendamento.html', {'form': form})

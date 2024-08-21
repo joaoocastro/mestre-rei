@@ -17,7 +17,7 @@ class Migration(migrations.Migration):
                 ('idBarbeiro', models.AutoField(primary_key=True, serialize=False)),
                 ('NomeBarbeiro', models.CharField(max_length=255)),
                 ('telefoneBarbeiro', models.CharField(blank=True, max_length=255, null=True)),
-                ('fotoBarbeiro', models.CharField(blank=True, max_length=255, null=True)),
+                ('fotoBarbeiro',  models.ImageField(upload_to='static/barbeiros/', blank=True, null=True)),
             ],
         ),
     ]
