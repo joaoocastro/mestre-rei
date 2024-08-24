@@ -28,6 +28,8 @@ from app.views import (
     cadastrar_agenda, cadastrar_agendamento
 )
 from django.contrib.auth.views import LogoutView
+from django.conf import settings
+from django.conf.urls.static import static
 
 
 urlpatterns = [
@@ -65,6 +67,9 @@ urlpatterns = [
     path('listar_agenda/', listar_agenda, name='listar_agenda'),
     path('agenda/new/', cadastrar_agenda, name='cadastrar_agenda'),
     path('agendamento/new/', cadastrar_agendamento, name='cadastrar_agendamento'),
-
+    
 
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
