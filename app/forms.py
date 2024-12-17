@@ -33,8 +33,7 @@ class AgendaForm(forms.ModelForm):
 class AgendamentoForm(forms.ModelForm):
     class Meta:
         model = Agendamento
-        fields = ('agenda', 'cliente')
-
+        fields = ['agenda', 'cliente']
         widgets = {
             'agenda': forms.Select(attrs={'class': 'form-control'}),
             'cliente': forms.Select(attrs={'class': 'form-control'}),
@@ -43,4 +42,8 @@ class AgendamentoForm(forms.ModelForm):
 class TrabalhaForm(forms.ModelForm):
     class Meta:
         model = Trabalha
-        fields = '__all__'
+        fields = ['idBarbeiro', 'idBarbearia']
+        widgets = {
+            'idBarbeiro': forms.Select(attrs={'class': 'form-control'}),
+            'idBarbearia': forms.Select(attrs={'class': 'form-control'}),
+        }

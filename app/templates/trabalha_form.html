@@ -1,87 +1,13 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Adicionar Registro de Trabalho</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-        }
-        .container {
-            max-width: 600px;
-            margin: 20px auto;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        h1 {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        form {
-            display: flex;
-            flex-direction: column;
-        }
-        label {
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-        input, select {
-            padding: 10px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-            margin-bottom: 10px;
-        }
-        button {
-            background-color: #4caf50;
-            color: #fff;
-            border: none;
-            padding: 10px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-        button:hover {
-            background-color: #45a049;
-        }
-        .success-message {
-            display: none;
-            color: green;
-            font-weight: bold;
-            margin-top: 10px;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h1>Adicionar Registro de Trabalho</h1>
-        
-        <form id="add-form" method="post" action="{% url 'trabalha-add' %}">
-            {% csrf_token %}
-            
-            <label for="id_barbeiro">Selecione o Barbeiro:</label>
-            <select name="idBarbeiro" id="id_barbeiro">
-                {% for barbeiro in barbeiros %}
-                    <option value="{{ barbeiro.idBarbeiro }}">{{ barbeiro.NomeBarbeiro }}</option>
-                {% endfor %}
-            </select>
+{% extends 'base.html' %}
+{% block title %}Cadastrar Relação{% endblock %}
 
-            <label for="id_barbearia">Selecione a Barbearia:</label>
-            <select name="idBarbearia" id="id_barbearia">
-                {% for barbearia in barbearias %}
-                    <option value="{{ barbearia.idBarbearia }}">{{ barbearia.nome }}</option>
-                {% endfor %}
-            </select>
-            
-            <button type="submit" id="submit-btn">Adicionar</button>
-        </form>
-        
-        <div class="success-message" id="success-msg">Trabalho cadastrado com sucesso!</div>
-    </div>
-</body>
-</html>
+{% block content %}
+<h1>Cadastrar Relação de Trabalho</h1>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-success">Salvar</button>
+    <a href="{% url 'trabalha-list' %}" class="btn btn-secondary">Voltar</a>
+</form>
+{% endblock %}

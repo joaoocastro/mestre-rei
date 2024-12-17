@@ -23,9 +23,9 @@ from app.views import (
     ClienteDetailView, ClienteCreateView, ClienteUpdateView,
     ClienteDeleteView, BarbeariaListView, BarbeariaDetailView,
     BarbeariaCreateView, BarbeariaUpdateView, BarbeariaDeleteView,
-    TrabalhaListView, TrabalhaDetailView, TrabalhaCreateView,
+    TrabalhaListView, TrabalhaCreateView,
     TrabalhaUpdateView, TrabalhaDeleteView, AgendaListView, AgendaCreateView, AgendaDetailView,
-    AgendamentoListView, AgendamentoCreateView, AgendaDeleteView, AgendaUpdateView,
+    AgendamentoDeleteView, AgendamentoListView, AgendamentoCreateView, AgendaDeleteView, AgendaUpdateView, AgendamentoDetailView, AgendamentoUpdateView
 )
 from django.contrib.auth.views import LogoutView
 from django.conf import settings
@@ -58,11 +58,9 @@ urlpatterns = [
     path('barbearias/<int:pk>/update/', BarbeariaUpdateView.as_view(), name='barbearia-update'),  # Atualizar barbearia
     path('barbearias/<int:pk>/delete/', BarbeariaDeleteView.as_view(), name='barbearia-delete'),  # Deletar barbearia
     
-    path('trabalhos/', TrabalhaListView.as_view(), name='trabalha-list'),  # Listar 'trabalhas'
-    path('trabalhos/<int:pk>/', TrabalhaDetailView.as_view(), name='trabalha-detail'),  # Detalhes de um 'trabalha'
-    path('trabalhos/add/', TrabalhaCreateView.as_view(), name='trabalha-add'),  # Adicionar novo 'trabalha'
-    path('trabalhos/<int:pk>/update/', TrabalhaUpdateView.as_view(), name='trabalha-update'),  # Atualizar 'trabalha'
-    path('trabalhos/<int:pk>/delete/', TrabalhaDeleteView.as_view(), name='trabalha-delete'),  # Deletar 'trabalha'
+    path('trabalhos/', TrabalhaListView.as_view(), name='trabalha-list'),
+    path('trabalhos/add/', TrabalhaCreateView.as_view(), name='trabalha-add'),
+    path('trabalhos/<int:pk>/delete/', TrabalhaDeleteView.as_view(), name='trabalha-delete'),
 
     # Agenda
     path('agendas/', AgendaListView.as_view(), name='agenda-list'),
@@ -74,9 +72,9 @@ urlpatterns = [
     # Agendamento
     path('agendamentos/', AgendamentoListView.as_view(), name='agendamento-list'),
     path('agendamentos/add/', AgendamentoCreateView.as_view(), name='agendamento-add'),
-    # path('agendamentos/add/', AgendamentoDetailView.as_view(), name='agendamento-detail'),
-    # path('agendamentos/add/', AgendamentoUpdateView.as_view(), name='agendamento-update'),
-    # path('agendamentos/add/', AgendamentoDeleteView.as_view(), name='agendamento-delete'),
+    path('agendamentos/<int:pk>/', AgendamentoDetailView.as_view(), name='agendamento-detail'),
+    path('agendamentos/<int:pk>/update/', AgendamentoUpdateView.as_view(), name='agendamento-update'),
+    path('agendamentos/<int:pk>/delete/', AgendamentoDeleteView.as_view(), name='agendamento-delete'),
     
 
 ]

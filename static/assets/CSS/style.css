@@ -24,8 +24,8 @@ button{
 /* Container do botão Logout */
 #logout-container {
     position: absolute;
-    top: 10px; /* Distância do topo */
-    right: 20px; /* Distância da direita */
+    top: 5px; /* Distância do topo */
+    right: 5px; /* Distância da direita */
     z-index: 1000; /* Garante que fique sobre outros elementos */
 }
 
@@ -37,8 +37,8 @@ button{
     background-color: #f44336; /* Cor do botão */
     color: #fff; /* Cor do texto */
     border: none; /* Remove borda */
-    padding: 5px 15px; /* Padding ajustado */
-    font-size: 14px; /* Tamanho da fonte */
+    padding: 2px 10px; /* Padding ajustado */
+    font-size: 10px; /* Tamanho da fonte */
     font-weight: bold; /* Negrito */
     border-radius: 5px; /* Borda arredondada */
     cursor: pointer; /* Ponteiro ao passar o mouse */

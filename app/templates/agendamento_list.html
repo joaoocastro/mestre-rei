@@ -24,7 +24,11 @@
 <!-- Lista de Agendamentos -->
 <ul>
     {% for agendamento in agendamentos %}
-        <li>{{ agendamento.agenda }} - {{ agendamento.cliente }}</li>
+        <li>
+            <a href="{% url 'agendamento-detail' agendamento.pk %}">
+                {{ agendamento.agenda }} - Cliente: {{ agendamento.cliente }}
+            </a>
+        </li>
     {% empty %}
         <li>Nenhum agendamento cadastrado ainda.</li>
     {% endfor %}

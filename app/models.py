@@ -34,7 +34,7 @@ class Cliente(models.Model):
         return self.nomeCliente
 
 class Trabalha(models.Model):
-    idBarbeiro = models.ForeignKey(Barbeiro, on_delete=models.CASCADE, primary_key=True)
+    idBarbeiro = models.ForeignKey(Barbeiro, on_delete=models.CASCADE, verbose_name="Barbeiro", default=1)
     idBarbearia = models.ForeignKey(Barbearia, on_delete=models.CASCADE)
 
     def __str__(self):

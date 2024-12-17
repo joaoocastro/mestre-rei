@@ -1,12 +1,10 @@
 {% extends 'base.html' %}
-{% load static %}
-
-{% block title %}Lista de Trabalhos{% endblock %}
+{% block title %}Relações de Trabalho{% endblock %}
 
 {% block content %}
-<h1>Lista de Trabalhos</h1>
+<h1>Relações de Trabalho</h1>
 
-<!-- Botão para Adicionar Novo Trabalho -->
+<!-- Botão para Adicionar Nova Relação -->
 <div style="text-align: right; margin-bottom: 20px;">
     <a href="{% url 'trabalha-add' %}" class="btn btn-primary" style="
         display: inline-block;
@@ -14,19 +12,22 @@
         background-color: #3F51B5;
         color: white;
         text-decoration: none;
-        border-radius: 5px;
-        font-weight: bold;
-        text-align: center;">
-        Adicionar Trabalho
+        border-radius: 5px;">
+        Adicionar Relação
     </a>
 </div>
 
-<!-- Lista de Trabalhos -->
+<!-- Lista de Relações -->
 <ul>
-    {% for trabalha in trabalhos %}
-        <li>{{ trabalha.idBarbeiro.NomeBarbeiro }} trabalha na {{ trabalha.idBarbearia.nome }}</li>
+    {% for trabalho in trabalhos %}
+        <li>
+            {{ trabalho.idBarbeiro.NomeBarbeiro }} trabalha na {{ trabalho.idBarbearia.nome }}
+            <a href="{% url 'trabalha-delete' trabalho.pk %}" class="btn btn-danger" style="margin-left: 10px;">
+                Deletar
+            </a>
+        </li>
     {% empty %}
-        <li>Nenhum trabalho cadastrado ainda.</li>
+        <li>Nenhuma relação cadastrada ainda.</li>
     {% endfor %}
 </ul>
 {% endblock %}
