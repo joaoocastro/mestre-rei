@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block title %}Cadastrar/Editar Agenda{% endblock %}
+
+{% block content %}
+<h1>{{ form.instance.pk|yesno:"Editar Agenda,Cadastrar Nova Agenda" }}</h1>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-success">Salvar</button>
+    <a href="{% url 'agenda-list' %}" class="btn btn-secondary">Voltar</a>
+</form>
+{% endblock %}

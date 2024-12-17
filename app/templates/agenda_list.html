@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}Lista de Agendas{% endblock %}
+
+{% block content %}
+<h1>Lista de Agendas</h1>
+<!-- Botão para Adicionar Nova Agenda -->
+<div style="text-align: right; margin-bottom: 20px;">
+    <a href="{% url 'agenda-add' %}" class="btn btn-primary" style="
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #3F51B5;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        font-weight: bold;">
+        Adicionar Agenda
+    </a>
+</div>
+<ul>
+    {% for agenda in agendas %}
+        <li>
+            <a href="{% url 'agenda-detail' agenda.pk %}">
+                {{ agenda.barbearia }} - {{ agenda.barbeiro }} - {{ agenda.data }} - {{ agenda.get_horario_display }}
+            </a>
+        </li>
+    {% empty %}
+        <li>Nenhuma agenda cadastrada ainda.</li>
+    {% endfor %}
+</ul>
+{% endblock %}

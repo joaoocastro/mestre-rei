@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}Deletar Agenda{% endblock %}
+
+{% block content %}
+<h1>Tem certeza que deseja deletar esta agenda?</h1>
+<p><strong>Barbearia:</strong> {{ agenda.barbearia }}</p>
+<p><strong>Barbeiro:</strong> {{ agenda.barbeiro }}</p>
+<p><strong>Data:</strong> {{ agenda.data }}</p>
+<p><strong>Horário:</strong> {{ agenda.get_horario_display }}</p>
+
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Deletar</button>
+    <a href="{% url 'agenda-list' %}" class="btn btn-secondary">Cancelar</a>
+</form>
+{% endblock %}

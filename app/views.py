@@ -1,19 +1,24 @@
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render, redirect
 from django.views import View
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView
 from django.urls import reverse_lazy
-from .models import Barbeiro, Barbearia, Cliente, Trabalha, Agendamento
 from django.contrib import messages
-from django.views.generic import TemplateView
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.forms import UserCreationForm
-from django.views.generic.edit import CreateView
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.http import HttpResponse
 from django.template.loader import render_to_string
-from django.views import View
-from django.shortcuts import get_object_or_404
+
+from .models import Agenda, Barbeiro, Barbearia, Cliente, Trabalha, Agendamento
+from .forms import AgendamentoForm, AgendaForm, TrabalhaForm
+
+from django.views.generic import ListView, CreateView
+from django.urls import reverse_lazy
+from .models import Agenda
+from .forms import AgendaForm
+from django.contrib.messages.views import SuccessMessageMixin
+
 
 class RenderTemplateView(View):
     def get(self, request, template_name):
@@ -42,6 +47,7 @@ class HomeView(TemplateView):
         context['clientes'] = Cliente.objects.all()
         context['trabalhos'] = Trabalha.objects.all()
         context['agendamentos'] = Agendamento.objects.all()
+        context['agendas'] = Agenda.objects.all()
         return context
 
 
@@ -142,33 +148,36 @@ class ClienteDeleteView(DeleteView):
     template_name = 'cliente_confirm_delete.html'
     success_url = reverse_lazy('cliente-list')
 
-# Views para o modelo Trabalha (repita o padrão semelhante ao modelo Barbeiro)
+# Listar as relações de trabalho entre barbeiros e barbearias
 class TrabalhaListView(ListView):
     model = Trabalha
     template_name = 'trabalha_list.html'
     context_object_name = 'trabalhos'
 
-class TrabalhaDetailView(DetailView):
-    model = Trabalha
-    template_name = 'trabalha_detail.html'
-    context_object_name = 'trabalha'
-
+# Criar uma nova relação entre barbeiro e barbearia
 class TrabalhaCreateView(CreateView):
     model = Trabalha
+    form_class = TrabalhaForm
     template_name = 'trabalha_form.html'
-    fields = '__all__'
-    success_url = reverse_lazy('trabalha-add')
-    
-    # permite mostrar lista com barbeiros e barbearias no front
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['barbeiros'] = Barbeiro.objects.all()
-        context['barbearias'] = Barbearia.objects.all()
-        return context
+    success_url = reverse_lazy('trabalha-list')
 
     def form_valid(self, form):
-        messages.success(self.request, 'Trabalho cadastrado com sucesso!')
+        messages.success(self.request, 'Relação de trabalho cadastrada com sucesso!')
         return super().form_valid(form)
+
+    def form_invalid(self, form):
+        messages.error(self.request, 'Erro ao cadastrar a relação de trabalho. Verifique os dados!')
+        return super().form_invalid(form)
+
+# Deletar uma relação entre barbeiro e barbearia
+class TrabalhaDeleteView(DeleteView):
+    model = Trabalha
+    template_name = 'trabalha_confirm_delete.html'
+    success_url = reverse_lazy('trabalha-list')
+
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request, 'Relação de trabalho deletada com sucesso!')
+        return super().delete(request, *args, **kwargs)
     
 class TrabalhaUpdateView(UpdateView):
     model = Trabalha
@@ -190,40 +199,100 @@ class TrabalhaDeleteView(DeleteView):
     template_name = 'trabalha_confirm_delete.html'
     success_url = reverse_lazy('trabalha-list')
 
-# Views para o modelo Agendamento (repita o padrão semelhante ao modelo Barbeiro)
+
+
+# Cadastrar Agenda
+class AgendaCreateView(CreateView):
+    model = Agenda
+    form_class = AgendaForm  # O formulário correto
+    template_name = 'agenda_form.html'  # Template para o cadastro
+    success_url = reverse_lazy('agenda-list')  # Redireciona para a lista de agendas após salvar
+
+    def form_valid(self, form):
+        # Salva a instância e exibe uma mensagem de sucesso
+        response = super().form_valid(form)
+        print("Agenda cadastrada com sucesso!")  # Log adicional para debug
+        return response
+
+    def form_invalid(self, form):
+        print("Erro ao cadastrar agenda:", form.errors)  # Mostra os erros no log
+        return super().form_invalid(form)
+
+# Listar Agendas
+class AgendaListView(ListView):
+    model = Agenda
+    template_name = 'agenda_list.html'
+    context_object_name = 'agendas'
+
+# Detalhes da agenda
+class AgendaDetailView(DetailView):
+    model = Agenda
+    template_name = 'agenda_detail.html'
+    context_object_name = 'agenda'
+
+# Atualizar uma agenda
+class AgendaUpdateView(UpdateView):
+    model = Agenda
+    template_name = 'agenda_form.html'
+    form_class = AgendaForm
+    success_url = reverse_lazy('agenda-list')
+
+    def form_valid(self, form):
+        messages.success(self.request, 'Agenda atualizada com sucesso!')
+        return super().form_valid(form)
+
+# Deletar uma agenda
+class AgendaDeleteView(DeleteView):
+    model = Agenda
+    template_name = 'agenda_confirm_delete.html'
+    success_url = reverse_lazy('agenda-list')
+
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request, 'Agenda deletada com sucesso!')
+        return super().delete(request, *args, **kwargs)
+
+
+
+# Listar agendamentos
 class AgendamentoListView(ListView):
     model = Agendamento
     template_name = 'agendamento_list.html'
     context_object_name = 'agendamentos'
 
+# Detalhes de um agendamento
 class AgendamentoDetailView(DetailView):
     model = Agendamento
     template_name = 'agendamento_detail.html'
     context_object_name = 'agendamento'
 
+# Criar um agendamento
 class AgendamentoCreateView(CreateView):
     model = Agendamento
+    form_class = AgendamentoForm
     template_name = 'agendamento_form.html'
-    fields = '__all__'
-    success_url = reverse_lazy('agendamento-add')  # Redireciona para a mesma página para cadastrar outro barbeiro
-
-    def get_context_data(self, **kwargs):
-            context = super().get_context_data(**kwargs)
-            context['barbeiros'] = Barbeiro.objects.all()
-            context['barbearias'] = Barbearia.objects.all()
-            context['clientes'] = Cliente.objects.all()
-            return context
+    success_url = reverse_lazy('agendamento-list')
 
     def form_valid(self, form):
         messages.success(self.request, 'Agendamento cadastrado com sucesso!')
         return super().form_valid(form)
 
+# Atualizar um agendamento
 class AgendamentoUpdateView(UpdateView):
     model = Agendamento
+    form_class = AgendamentoForm
     template_name = 'agendamento_form.html'
-    fields = '__all__'
+    success_url = reverse_lazy('agendamento-list')
 
+    def form_valid(self, form):
+        messages.success(self.request, 'Agendamento atualizado com sucesso!')
+        return super().form_valid(form)
+
+# Deletar um agendamento
 class AgendamentoDeleteView(DeleteView):
     model = Agendamento
     template_name = 'agendamento_confirm_delete.html'
     success_url = reverse_lazy('agendamento-list')
+
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request, 'Agendamento deletado com sucesso!')
+        return super().delete(request, *args, **kwargs)

@@ -1,29 +1,40 @@
 """
-URL configuration for admin project.
+Configuração de URL para o projeto admin.
 
-The `urlpatterns` list routes URLs to views. For more information please see:
+A lista `urlpatterns` roteia URLs para views. Para mais informações, veja:
     https://docs.djangoproject.com/en/5.0/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
+Exemplos:
+Views baseadas em função
+    1. Adicione um import:  from my_app import views
+    2. Adicione uma URL a urlpatterns:  path('', views.home, name='home')
+Views baseadas em classe
+    1. Adicione um import:  from other_app.views import Home
+    2. Adicione uma URL a urlpatterns:  path('', Home.as_view(), name='home')
+Incluindo outra URLconf
+    1. Importe a função include: from django.urls import include, path
+    2. Adicione uma URL a urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
 from django.urls import path, include
-from app.views import * # importar todas as views para uso aqui nas urls
-from django.contrib.auth.views import LoginView, LogoutView
-
+from app.views import (
+    HomeView, CustomLoginView, SignUpView, RenderTemplateView,
+    BarbeiroListView, BarbeiroDetailView, BarbeiroCreateView,
+    BarbeiroUpdateView, BarbeiroDeleteView, ClienteListView,
+    ClienteDetailView, ClienteCreateView, ClienteUpdateView,
+    ClienteDeleteView, BarbeariaListView, BarbeariaDetailView,
+    BarbeariaCreateView, BarbeariaUpdateView, BarbeariaDeleteView,
+    TrabalhaListView, TrabalhaCreateView,
+    TrabalhaUpdateView, TrabalhaDeleteView, AgendaListView, AgendaCreateView, AgendaDetailView,
+    AgendamentoDeleteView, AgendamentoListView, AgendamentoCreateView, AgendaDeleteView, AgendaUpdateView, AgendamentoDetailView, AgendamentoUpdateView
+)
+from django.contrib.auth.views import LogoutView
+from django.conf import settings
+from django.conf.urls.static import static
 
 
 urlpatterns = [
-    path('admin/', admin.site.urls), #administrador
-    path('', HomeView.as_view(), name='home'), # home
+    path('admin/', admin.site.urls),  # administrador
+    path('', HomeView.as_view(), name='home'),  # home
     path('login/', CustomLoginView.as_view(), name='login'),
     path('logout/', LogoutView.as_view(), name='logout'),
     path('signup/', SignUpView.as_view(), name='signup'),
@@ -47,18 +58,26 @@ urlpatterns = [
     path('barbearias/<int:pk>/update/', BarbeariaUpdateView.as_view(), name='barbearia-update'),  # Atualizar barbearia
     path('barbearias/<int:pk>/delete/', BarbeariaDeleteView.as_view(), name='barbearia-delete'),  # Deletar barbearia
     
-    path('trabalhos/', TrabalhaListView.as_view(), name='trabalha-list'),  # Listar 'trabalhas'
-    path('trabalhos/<int:pk>/', TrabalhaDetailView.as_view(), name='trabalha-detail'),  # Detalhes de um 'trabalha'
-    path('trabalhos/add/', TrabalhaCreateView.as_view(), name='trabalha-add'),  # Adicionar novo 'trabalha'
-    path('trabalhos/<int:pk>/update/', TrabalhaUpdateView.as_view(), name='trabalha-update'),  # Atualizar 'trabalha'
-    path('trabalhos/<int:pk>/delete/', TrabalhaDeleteView.as_view(), name='trabalha-delete'),  # Deletar 'trabalha'
+    path('trabalhos/', TrabalhaListView.as_view(), name='trabalha-list'),
+    path('trabalhos/add/', TrabalhaCreateView.as_view(), name='trabalha-add'),
+    path('trabalhos/<int:pk>/delete/', TrabalhaDeleteView.as_view(), name='trabalha-delete'),
 
+    # Agenda
+    path('agendas/', AgendaListView.as_view(), name='agenda-list'),
+    path('agendas/add/', AgendaCreateView.as_view(), name='agenda-add'),
+    path('agendas/<int:pk>/', AgendaDetailView.as_view(), name='agenda-detail'),
+    path('agendas/<int:pk>/update/', AgendaUpdateView.as_view(), name='agenda-update'),
+    path('agendas/<int:pk>/delete/', AgendaDeleteView.as_view(), name='agenda-delete'),
+
+    # Agendamento
     path('agendamentos/', AgendamentoListView.as_view(), name='agendamento-list'),
-    path('agendamentos/<int:pk>/', AgendamentoDetailView.as_view(), name='agendamento-detail'),
     path('agendamentos/add/', AgendamentoCreateView.as_view(), name='agendamento-add'),
+    path('agendamentos/<int:pk>/', AgendamentoDetailView.as_view(), name='agendamento-detail'),
     path('agendamentos/<int:pk>/update/', AgendamentoUpdateView.as_view(), name='agendamento-update'),
     path('agendamentos/<int:pk>/delete/', AgendamentoDeleteView.as_view(), name='agendamento-delete'),
-
+    
 
 ]
 
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

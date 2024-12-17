@@ -1,55 +1,35 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de Clientes</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-        }
-        .container {
-            max-width: 600px;
-            margin: 20px auto;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        h1 {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        ul {
-            list-style: none;
-            padding: 0;
-        }
-        li {
-            margin-bottom: 10px;
-        }
-        a {
-            color: #007bff;
-            text-decoration: none;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h1>Lista de Clientes</h1>
+{% extends 'base.html' %}
+{% load static %}
 
-        <ul>
-            {% for cliente in clientes %}
-                <li>
-                    <a href="{% url 'cliente-detail' cliente.idCliente %}">{{ cliente.nomeCliente }}</a>
-                </li>
-            {% endfor %}
-        </ul>
-    </div>
-</body>
-</html>
+{% block title %}Lista de Clientes{% endblock %}
+
+{% block content %}
+<h1>Lista de Clientes</h1>
+
+<!-- Botão para Adicionar Novo Cliente -->
+<div style="text-align: right; margin-bottom: 20px;">
+    <a href="{% url 'cliente-add' %}" class="btn btn-primary" style="
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #3F51B5;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        font-weight: bold;">
+        Adicionar Cliente
+    </a>
+</div>
+
+<!-- Lista de Clientes -->
+<ul>
+    {% for cliente in clientes %}
+        <li>
+            <a href="{% url 'cliente-detail' cliente.pk %}" style="text-decoration: none; color: #1976D2;">
+                {{ cliente.nomeCliente }} - {{ cliente.telefoneCliente }} - {{ cliente.emailCliente }}
+            </a>
+        </li>
+    {% empty %}
+        <li>Nenhum cliente cadastrado ainda.</li>
+    {% endfor %}
+</ul>
+{% endblock %}

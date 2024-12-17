@@ -1,55 +1,33 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de Trabalhos</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-        }
-        .container {
-            max-width: 600px;
-            margin: 20px auto;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        h1 {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        ul {
-            list-style: none;
-            padding: 0;
-        }
-        li {
-            margin-bottom: 10px;
-        }
-        a {
-            color: #007bff;
-            text-decoration: none;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h1>Lista de Trabalhos</h1>
+{% extends 'base.html' %}
+{% block title %}Relações de Trabalho{% endblock %}
 
-        <ul>
-            {% for trabalho in trabalhos %}
-                <li>
-                    <a href="{% url 'trabalha-detail' trabalho.pk %}">{{ trabalho.idBarbeiro.NomeBarbeiro }} trabalha na = {{ trabalho.idBarbearia.nome }}</a>
-                </li>
-            {% endfor %}
-        </ul>
-    </div>
-</body>
-</html>
+{% block content %}
+<h1>Relações de Trabalho</h1>
+
+<!-- Botão para Adicionar Nova Relação -->
+<div style="text-align: right; margin-bottom: 20px;">
+    <a href="{% url 'trabalha-add' %}" class="btn btn-primary" style="
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #3F51B5;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;">
+        Adicionar Relação
+    </a>
+</div>
+
+<!-- Lista de Relações -->
+<ul>
+    {% for trabalho in trabalhos %}
+        <li>
+            {{ trabalho.idBarbeiro.NomeBarbeiro }} trabalha na {{ trabalho.idBarbearia.nome }}
+            <a href="{% url 'trabalha-delete' trabalho.pk %}" class="btn btn-danger" style="margin-left: 10px;">
+                Deletar
+            </a>
+        </li>
+    {% empty %}
+        <li>Nenhuma relação cadastrada ainda.</li>
+    {% endfor %}
+</ul>
+{% endblock %}

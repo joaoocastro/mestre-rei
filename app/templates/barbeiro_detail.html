@@ -1,8 +1,10 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/CSS/style.css' %}" />
     <title>Detalhes do Barbeiro</title>
     <style>
         body {
@@ -23,28 +25,58 @@
             text-align: center;
             margin-bottom: 20px;
         }
-        p {
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li {
             margin-bottom: 10px;
-        }
-        strong {
-            font-weight: bold;
-        }
-        img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 5px;
         }
         a {
             color: #007bff;
             text-decoration: none;
-            margin-right: 10px;
         }
         a:hover {
+            text-decoration: underline;
+        }
+        nav {
+            background-color: #1976D2;
+            padding: 10px;
+            text-align: center;
+        }
+        nav a {
+            color: #fff;
+            margin: 0 15px;
+            text-decoration: none;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        footer {
+            background-color: #1976D2;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+        footer a {
+            color: #fff;
             text-decoration: underline;
         }
     </style>
 </head>
 <body>
+
+    <nav>
+        <a class="a-menu" href="{% url 'home' %}"> HOME </a>
+        <a class="a-menu" href="#pag-alguns_servicos"> SERVIÇOS </a>
+        <a class="a-menu" href="{% url 'barbearia-list' %}"> BARBEARIAS </a>
+        <a class="a-menu" href="{% url 'barbeiro-list' %}"> BARBEIROS </a>
+        <a class="a-menu" href="{% url 'agendamento-list' %}"> AGENDE UM HORÁRIO </a>
+    </nav>
+
     <div class="container">
         <h1>Detalhes do Barbeiro</h1>
 
@@ -52,12 +84,18 @@
         <p><strong>Nome:</strong> {{ barbeiro.NomeBarbeiro }}</p>
         <p><strong>Telefone:</strong> {{ barbeiro.telefoneBarbeiro }}</p>
         <p><strong>Foto:</strong></p>
-        <p><img src="{{ barbeiro.fotoBarbeiro }}" alt="Foto do Barbeiro"></p>
+        <p><img height="300" width="250" src="{{ barbeiro.fotoBarbeiro.url}}"></p>
+        
         
         <!-- Adicione outras informações do barbeiro conforme necessário -->
         
         <p><a href="{% url 'barbeiro-update' barbeiro.pk %}">Editar</a></p>
         <p><a href="{% url 'barbeiro-delete' barbeiro.pk %}">Excluir</a></p>
     </div>
+
+    <footer>
+        <p>Desenvolvido por <a href="https://www.instagram.com/riqpedro" target="_blank">Pedro Henrique</a> e <a href="https://www.instagram.com/jooao_castroo" target="_blank">Joao Castro</a> - 2024</p>
+    </footer>
+
 </body>
 </html>

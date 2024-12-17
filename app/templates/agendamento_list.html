@@ -1,64 +1,36 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de Agendamentos</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-        }
-        .container {
-            max-width: 600px;
-            margin: 20px auto;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        h1 {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        ul {
-            list-style: none;
-            padding: 0;
-        }
-        li {
-            margin-bottom: 10px;
-        }
-        a {
-            color: #007bff;
-            text-decoration: none;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
-        .add-agendamento {
-            display: block;
-            text-align: center;
-            margin-top: 20px;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h1>Lista de Agendamentos</h1>
+{% extends 'base.html' %}
+{% load static %}
 
-        <ul>
-            {% for agendamento in agendamentos %}
-                <li>
-                    <a href="{% url 'agendamento-detail' agendamento.idAgendamento %}">
-                        {{ agendamento.dataCompleta }} - {{ agendamento.idCliente.nome }} com {{ agendamento.idBarbeiro.nome }} na {{ agendamento.idBarbearia.nome }}
-                    </a>
-                </li>
-            {% endfor %}
-        </ul>
+{% block title %}Lista de Agendamentos{% endblock %}
 
-        <a class="add-agendamento" href="{% url 'agendamento-add' %}">Adicionar Novo Agendamento</a>
-    </div>
-</body>
-</html>
+{% block content %}
+<h1>Lista de Agendamentos</h1>
+
+<!-- Botão para Adicionar Novo Agendamento -->
+<div style="text-align: right; margin-bottom: 20px;">
+    <a href="{% url 'agendamento-add' %}" class="btn btn-primary" style="
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #3F51B5;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        font-weight: bold;
+        text-align: center;">
+        Adicionar Agendamento
+    </a>
+</div>
+
+<!-- Lista de Agendamentos -->
+<ul>
+    {% for agendamento in agendamentos %}
+        <li>
+            <a href="{% url 'agendamento-detail' agendamento.pk %}">
+                {{ agendamento.agenda }} - Cliente: {{ agendamento.cliente }}
+            </a>
+        </li>
+    {% empty %}
+        <li>Nenhum agendamento cadastrado ainda.</li>
+    {% endfor %}
+</ul>
+{% endblock %}

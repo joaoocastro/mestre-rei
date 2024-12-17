@@ -1,108 +1,13 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Adicionar Agendamento</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-        }
-        .container {
-            max-width: 600px;
-            margin: 20px auto;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        h1 {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        form {
-            display: flex;
-            flex-direction: column;
-        }
-        label {
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-        input, select {
-            padding: 10px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-            margin-bottom: 10px;
-        }
-        button {
-            background-color: #4caf50;
-            color: #fff;
-            border: none;
-            padding: 10px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-        button:hover {
-            background-color: #45a049;
-        }
-        .success-message {
-            display: none;
-            color: green;
-            font-weight: bold;
-            margin-top: 10px;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h1>Adicionar Agendamento</h1>
-        
-        <form id="add-form" method="post" action="{% url 'agendamento-add' %}">
-            {% csrf_token %}
-            
-            <label for="id_data_completa">Data do Agendamento:</label>
-            <input type="date" name="dataCompleta" id="id_data_completa" required>
-            
-            <label for="id_barbeiro">Selecione o Barbeiro:</label>
-            <select name="idBarbeiro" id="id_barbeiro" required>
-                {% for barbeiro in barbeiros %}
-                    <option value="{{ barbeiro.idBarbeiro }}">{{ barbeiro.NomeBarbeiro }}</option>
-                {% endfor %}
-            </select>
+{% extends 'base.html' %}
+{% block title %}Cadastrar/Editar Agendamento{% endblock %}
 
-            <label for="id_cliente">Selecione o Cliente:</label>
-            <select name="idCliente" id="id_cliente" required>
-                {% for cliente in clientes %}
-                    <option value="{{ cliente.idCliente }}">{{ cliente.nomeCliente }}</option>
-                {% endfor %}
-            </select>
-            
-            <label for="id_barbearia">Selecione a Barbearia:</label>
-            <select name="idBarbearia" id="id_barbearia" required>
-                {% for barbearia in barbearias %}
-                    <option value="{{ barbearia.idBarbearia }}">{{ barbearia.nome }}</option>
-                {% endfor %}
-            </select>
-            
-            <button type="submit" id="submit-btn">Adicionar</button>
-        </form>
-        
-        <div class="success-message" id="success-msg">Agendamento cadastrado com sucesso!</div>
-    </div>
+{% block content %}
+<h1>{{ form.instance.pk|yesno:"Editar Agendamento,Cadastrar Novo Agendamento" }}</h1>
 
-    <script>
-        document.getElementById("add-form").addEventListener("submit", function(event) {
-            // Prevent the form from submitting normally
-            event.preventDefault();
-            // Show the success message
-            document.getElementById("success-msg").style.display = "block";
-            // Submit the form
-            document.getElementById("add-form").submit();
-        });
-    </script>
-</body>
-</html>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-success">Salvar</button>
+    <a href="{% url 'agendamento-list' %}" class="btn btn-secondary">Voltar</a>
+</form>
+{% endblock %}

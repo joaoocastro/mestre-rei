@@ -1,24 +1,69 @@
 # mestre-rei
-entre na pasta mestre-rei usando terminal
 
-cd \Users\joaoc\Documents\workspace\mestre-rei
+# Criar venv
+    python3 -m venv venv
+    source venv/bin/activate
+    
+# Instalar pacote pip
+    pip install django
+    pip install djangorestframework
+    pip install django-cors-headers
 
-# execute o comando no terminal para liberar acessos
-powershell -executionpolicy Unrestricted
+# Criar projeto django, para uma pasta apenas use .
+    django-admin startproject Setup .
+# Criar app django
+    python manage.py startapp app
 
 
-# comando para iniciar o servidor backend do django, sempre dentro da pasta mestre-rei
-python manage.py runserver
+# Fazer migração inicial
+    python manage.py makemigrations
+    python manage.py migrate
 
-# com o servidor iniciado vá aos endereços
-http://localhost:8000/
-http://localhost:8000/login
-http://localhost:8000/signup
-http://localhost:8000/barbeiros
-http://localhost:8000/barbeiros/add
-http://localhost:8000/clientes/add/
-etc ...
+# Criar super user
+    python manage.py createsuperuser
 
-# comando para gerar as tabelas apos fazer alguma alteraçao no arquivo app/models.py
-python manage.py makemigrations app
-python manage.py migrate app
+# dentro de settings.py
+LANGUAGE_CODE = 'pt-br'
+TIME_ZONE = 'America/Sao_Paulo'
+
+# No Setup/settings.py
+    INSTALLED_APPS = [
+        'django.contrib.admin',
+        'django.contrib.auth',
+        'django.contrib.contenttypes',
+        'django.contrib.sessions',
+        'django.contrib.messages',
+        'django.contrib.staticfiles',
+        'app',
+        'rest_framework',
+        'corsheaders',
+    ]
+
+    MIDDLEWARE = [
+        'corsheaders.middleware.CorsMiddleware',
+    ]
+
+# Importante para não bloquear o REACT
+    REST_FRAMEWORK = {'DEFAULT_PERMISSION_CLASSES':[
+            'rest_framework.permissions.AllowAny']}
+
+# aceita requisição de todos 
+    CORS_ORIGIN_ALLOW_ALL = True
+
+
+## views e urls
+    Nesse projeto não usamos router no url, nem viewset no views.
+    usamos maneira antiga de fazer, criando funções na viwe e usando re_path para adicionar as urls do arquivo url.py
+
+# ViewSets
+    ViewSets are just a type of class based view but it do not provide request method handlers like "get ()", "post ()", "patch ()", "delete ()", etc. But, it provides actions such as "create ()", "list ()", "retrieve ()", "update ()", "partial_update ()" and "destroy ()".
+
+
+# Upload de Imagens
+    Dentro do backend criamos a pasta /media
+    colocamos nossas imagens nela
+
+# No arquivo settings.py adicione o caminho
+    import os
+    MEDIA_URL = '/media/'
+    MEDIA_ROOT = os.path.join(BASE_DIR,"media")
