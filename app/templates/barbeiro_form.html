@@ -55,7 +55,7 @@
     <div class="container">
         <h1>Adicionar Barbeiro</h1>
         
-        <form method="post">
+        <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
             <label for="id_NomeBarbeiro">Nome:</label>
             {{ form.NomeBarbeiro }}

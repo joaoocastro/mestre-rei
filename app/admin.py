@@ -40,4 +40,3 @@ class BarbeariaAdmin(admin.ModelAdmin):
     list_per_page = 100
 
 admin.site.register(Barbearia)
-

@@ -33,7 +33,8 @@
 </head>
 
 <body>
-   <p"text-right><div class="logout-container">
+   
+    <div class="logout-container">
         {% if user.is_authenticated %}
             <form action="{% url 'logout' %}" method="post">
                 {% csrf_token %}
@@ -43,7 +44,7 @@
             <a href="{% url 'login' %}"><button class="logout-button">Login</button></a>
             <a href="{% url 'register' %}"><button class="logout-button">Cadastra-se</button></a>
         {% endif %}
-    </div></p> 
+    </div>
 
     <img src="static/banner.png" alt="banner da barbearia" />
 
@@ -52,7 +53,7 @@
         <a class="a-menu" href="#pag-alguns_servicos"> SERVIÇOS </a>
         <a class="a-menu" href="{% url 'barbearia-list' %}"> BARBEARIAS </a>
         <a class="a-menu" href="{% url 'barbeiro-list' %}"> BARBEIROS </a>
-        <a class="a-menu" href="{% url 'agendamento-list' %}"> AGENDE UM HORÁRIO </a>
+        <a class="a-menu" href="{% url 'cadastrar_agendamento' %}"> AGENDE UM HORÁRIO </a>
     </nav>
 
     <h1>Barbearia</h1>
@@ -96,7 +97,7 @@
     </script>
 
     <footer>
-        <p>Desenvolvido por <a href="https://www.instagram.com/riqpedro" target="_blank">Pedro Henrique</a> e <a href="https://www.instagram.com/jooao_castroo" target="_blank">Joao Castro</a> - 2023</p>
+        <p>Desenvolvido por <a href="https://www.instagram.com/riqpedro" target="_blank">Pedro Henrique</a> e <a href="https://www.instagram.com/jooao_castroo" target="_blank">Joao Castro</a> - 2024</p>
     </footer>
 </body>
 
