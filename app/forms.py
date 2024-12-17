@@ -6,9 +6,10 @@ import datetime
 class AgendaForm(forms.ModelForm):
     class Meta:
         model = Agenda
-        fields = ('barbeiro', 'data', 'horario')
+        fields = ('barbearia', 'barbeiro', 'data', 'horario')
 
         widgets = {
+            'barbearia': forms.Select(attrs={'class': 'form-control'}),
             'barbeiro': forms.Select(attrs={'class': 'form-control'}),
             'data': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
             'horario': forms.Select(attrs={'class': 'form-control'}),

@@ -1,0 +1,49 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Agendas</title>
+    <link rel="stylesheet" href="{% static 'assets/CSS/style.css' %}">
+</head>
+<body>
+    <nav>
+        <a href="{% url 'home' %}">HOME</a>
+        <a href="{% url 'barbearia-list' %}">BARBEARIAS</a>
+        <a href="{% url 'barbeiro-list' %}">BARBEIROS</a>
+        <a href="{% url 'agendamento-list' %}">AGENDAMENTOS</a>
+    </nav>
+
+    <div class="container">
+        <h1>Lista de Agendas</h1>
+        <a href="{% url 'agenda-add' %}" class="btn btn-success">Adicionar Nova Agenda</a>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Barbearia</th>
+                    <th>Barbeiro</th>
+                    <th>Data</th>
+                    <th>Horário</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for agenda in agendas %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ agenda.barbearia }}</td>
+                    <td>{{ agenda.barbeiro }}</td>
+                    <td>{{ agenda.data }}</td>
+                    <td>{{ agenda.get_horario_display }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5">Nenhuma agenda cadastrada.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

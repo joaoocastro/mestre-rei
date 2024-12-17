@@ -13,6 +13,12 @@ from django.template.loader import render_to_string
 from .models import Agenda, Barbeiro, Barbearia, Cliente, Trabalha, Agendamento
 from .forms import AgendamentoForm, AgendaForm, TrabalhaForm
 
+from django.views.generic import ListView, CreateView
+from django.urls import reverse_lazy
+from .models import Agenda
+from .forms import AgendaForm
+from django.contrib.messages.views import SuccessMessageMixin
+
 
 class RenderTemplateView(View):
     def get(self, request, template_name):
@@ -41,6 +47,7 @@ class HomeView(TemplateView):
         context['clientes'] = Cliente.objects.all()
         context['trabalhos'] = Trabalha.objects.all()
         context['agendamentos'] = Agendamento.objects.all()
+        context['agendas'] = Agenda.objects.all()
         return context
 
 
@@ -214,3 +221,33 @@ def cadastrar_agendamento(request):
     else:
         form = AgendamentoForm()
     return render(request, 'cadastrar_agendamento.html', {'form': form})
+
+
+# Listar Agendas
+class AgendaListView(ListView):
+    model = Agenda
+    template_name = 'agenda_list.html'
+    context_object_name = 'agendas'
+
+# Cadastrar Agenda
+class AgendaCreateView(SuccessMessageMixin, CreateView):
+    model = Agenda
+    form_class = AgendaForm
+    template_name = 'agenda_form.html'
+    success_url = reverse_lazy('agenda-list')
+    success_message = "Agenda cadastrada com sucesso!"
+
+
+# Listar Agendamentos
+class AgendamentoListView(ListView):
+    model = Agendamento
+    template_name = 'agendamento_list.html'
+    context_object_name = 'agendamentos'
+
+# Cadastrar Agendamento
+class AgendamentoCreateView(SuccessMessageMixin, CreateView):
+    model = Agendamento
+    form_class = AgendamentoForm
+    template_name = 'agendamento_form.html'
+    success_url = reverse_lazy('agendamento-list')
+    success_message = "Agendamento cadastrado com sucesso!"
