@@ -21,6 +21,43 @@ button{
 	border-radius: 5px;
 }
 
+/* Estilos globais para botões */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 20px; /* Ajusta o espaçamento interno */
+    min-width: 120px; /* Garante uma largura mínima */
+    height: 45px; /* Altura consistente para todos os botões */
+    font-size: 16px; /* Tamanho padrão do texto */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none; /* Remove sublinhado para links estilizados */
+    transition: background-color 0.3s ease;
+}
+
+/* Botão de salvar */
+.btn-success {
+    background-color: #3F51B5;
+    color: white;
+}
+
+.btn-success:hover {
+    background-color: #303F9F;
+}
+
+/* Botão de voltar */
+.btn-secondary {
+    background-color: #ccc;
+    color: #333;
+}
+
+.btn-secondary:hover {
+    background-color: #b5b5b5;
+}
+
+
 /* Container do botão Logout */
 #logout-container {
     position: absolute;
