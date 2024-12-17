@@ -1,104 +1,64 @@
+{% extends 'base.html' %}
 {% load static %}
 
-<!DOCTYPE html>
-<html lang="pt-br">
+{% block title %}Página Inicial{% endblock %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="author" content="Pedro Henrique e Joao Castro" />
-    <meta name="keywords" content="Barbearia, Barbeiro, Corte de cabelo, Barba, BarberShop" />
-    <meta name="description" content="Agendamento do corte de cabelo" />
-    <link rel="stylesheet" type="text/css" href="static/assets/CSS/style.css" />
-    <title>Barbearia</title>
-    <style>
+{% block content %}
 
-        .logout-button {
-            background-color: #f44336;
-            color: #fff;
-            border: none;
-            padding: 10px 20px;
-            font-size: 16px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-        .logout-button:hover {
-            background-color: #d32f2f;
-        }
-        .hidden {
-            display: none;
-        }
-    </style>
-</head>
+<!-- Container para botão Logout -->
+<div id="logout-container">
+    {% if user.is_authenticated %}
+        <form action="{% url 'logout' %}" method="post">
+            {% csrf_token %}
+            <button class="logout-button" type="submit">Logout</button>
+        </form>
+    {% endif %}
+</div>
 
-<body>
-   
-    <div class="logout-container">
-        {% if user.is_authenticated %}
-            <form action="{% url 'logout' %}" method="post">
-                {% csrf_token %}
-                <button class="logout-button" type="submit">Logout</button>
-            </form>
-        {% else %}
-            <a href="{% url 'login' %}"><button class="logout-button">Login</button></a>
-            <a href="{% url 'register' %}"><button class="logout-button">Cadastra-se</button></a>
-        {% endif %}
-    </div>
 
-    <img src="static/banner.png" alt="banner da barbearia" />
+<!-- Banner -->
+<div style="text-align: center; margin-bottom: 20px;">
+    <img src="{% static 'banner.png' %}" alt="banner da barbearia" style="max-width: 100%; height: auto;" />
+</div>
 
-    <nav>
-        <a class="a-menu" href="{% url 'home' %}"> HOME </a>
-        <a class="a-menu" href="#pag-alguns_servicos"> SERVIÇOS </a>
-        <a class="a-menu" href="{% url 'barbearia-list' %}"> BARBEARIAS </a>
-        <a class="a-menu" href="{% url 'barbeiro-list' %}"> BARBEIROS </a>
-        <a class="a-menu" href="{% url 'agendamento-list' %}"> AGENDE UM HORÁRIO </a>
-    </nav>
+<!-- Título -->
+<h1>Bem-vindo à Barbearia</h1>
 
-    <h1>Barbearia</h1>
+<p style="text-align: center;">De cabelo, barba, bigode e futebol a gente entende!</p>
+<p style="text-align: justify;">
+    Uma barbearia da cidade satélite Varjão - DF que tem como missão oferecer autoestima e bem-estar ao público masculino
+    por meio de cortes de cabelo de adultos e crianças, aliado à barba, bigode e tintura, em prol de 100% de satisfação
+    com o atendimento e execução dos nossos serviços.
+</p>
 
-    <p>De cabelo, barba, bigode e futebol a gente entende!</p>
-    <p>Uma barbearia da cidade satélite Varjão - DF que temos como missão oferecer autoestima e bem-estar ao público masculino por meio de cortes de cabelo de adultos e crianças, aliado à barba, bigode e tintura, em prol de 100% de satisfação com o atendimento e execução dos nossos serviços.</p>
+<hr id="pag-alguns_servicos" />
 
-    <hr id="pag-alguns_servicos" />
 
-    <h2>Alguns Serviços</h2>
+<!-- Serviços -->
+<h2 style="text-align: center;">Alguns Serviços</h2>
+<p style="text-align: center;">Conheça alguns dos nossos principais serviços</p>
 
-    <p>Alguns serviços que realizamos aqui na nossa barbearia</p>
+<table style="margin: 0 auto; text-align: center;">
+    <tr>
+        <td>
+            <img src="{% static 'corte_maquina.png' %}" alt="Corte na Máquina" style="width: 100px; height: auto;" />
+        </td>
+        <td>
+            <img src="{% static 'corte_tesoura.png' %}" alt="Corte na Tesoura" style="width: 100px; height: auto;" />
+        </td>
+        <td>
+            <img src="{% static 'navalha_barba.png' %}" alt="Barba" style="width: 100px; height: auto;" />
+        </td>
+        <td>
+            <img src="{% static 'sobrancelha.png' %}" alt="Sobrancelha" style="width: 100px; height: auto;" />
+        </td>
+    </tr>
+    <tr>
+        <td>Corte na Máquina</td>
+        <td>Corte na Tesoura</td>
+        <td>Barba</td>
+        <td>Sobrancelha</td>
+    </tr>
+</table>
 
-    <table>
-        <tr>
-            <td><img src="static/corte_maquina.png" alt="Maquina de cortar cabelo" /></td>
-            <td><img src="static/corte_tesoura.png" alt="Tesoura e pente" /></td>
-            <td><img src="static/navalha_barba.png" alt="Navalha de fazer a barba" /></td>
-            <td><img src="static/sobrancelha.png" alt="Sobrancelha e pinça" /></td>
-        </tr>
-        <tr>
-            <td>Corte na Maquina</td>
-            <td>Corte na tesoura</td>
-            <td>Barba</td>
-            <td>Sobrancelha</td>
-        </tr>
-    </table>
-
-    
-
-    <script>
-        function showDetails(id) {
-            // Esconde todos os detalhes
-            var details = document.querySelectorAll('.content > div');
-            details.forEach(function(detail) {
-                detail.classList.add('hidden');
-            });
-            // Mostra os detalhes do modelo clicado
-            document.getElementById(id).classList.remove('hidden');
-        }
-    </script>
-
-    <footer>
-        <p>Desenvolvido por <a href="https://www.instagram.com/riqpedro" target="_blank">Pedro Henrique</a> e <a href="https://www.instagram.com/jooao_castroo" target="_blank">Joao Castro</a> - 2024</p>
-    </footer>
-</body>
-
-</html>
+{% endblock %}

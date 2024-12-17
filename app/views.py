@@ -197,31 +197,23 @@ class TrabalhaDeleteView(DeleteView):
     success_url = reverse_lazy('trabalha-list')
 
 
-# Views para o modelo Agendamento (repita o padrão semelhante ao modelo Barbeiro)
-def listar_agenda(request):
-    agendas = Agenda.objects.all()
-    return render(request, 'listar_agenda.html', {'agendas': agendas})
 
-def cadastrar_agenda(request):
-    if request.method == "POST":
-        form = AgendaForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('listar_agenda')
-    else:
-        form = AgendaForm()
-    return render(request, 'cadastrar_agenda.html', {'form': form})
+# Cadastrar Agenda
+class AgendaCreateView(CreateView):
+    model = Agenda
+    form_class = AgendaForm  # O formulário correto
+    template_name = 'agenda_form.html'  # Template para o cadastro
+    success_url = reverse_lazy('agenda-list')  # Redireciona para a lista de agendas após salvar
 
-def cadastrar_agendamento(request):
-    if request.method == "POST":
-        form = AgendamentoForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('pagina_inicial')
-    else:
-        form = AgendamentoForm()
-    return render(request, 'cadastrar_agendamento.html', {'form': form})
+    def form_valid(self, form):
+        # Salva a instância e exibe uma mensagem de sucesso
+        response = super().form_valid(form)
+        print("Agenda cadastrada com sucesso!")  # Log adicional para debug
+        return response
 
+    def form_invalid(self, form):
+        print("Erro ao cadastrar agenda:", form.errors)  # Mostra os erros no log
+        return super().form_invalid(form)
 
 # Listar Agendas
 class AgendaListView(ListView):
@@ -229,13 +221,32 @@ class AgendaListView(ListView):
     template_name = 'agenda_list.html'
     context_object_name = 'agendas'
 
-# Cadastrar Agenda
-class AgendaCreateView(SuccessMessageMixin, CreateView):
+# Detalhes da agenda
+class AgendaDetailView(DetailView):
     model = Agenda
-    form_class = AgendaForm
+    template_name = 'agenda_detail.html'
+    context_object_name = 'agenda'
+
+# Atualizar uma agenda
+class AgendaUpdateView(UpdateView):
+    model = Agenda
     template_name = 'agenda_form.html'
+    form_class = AgendaForm
     success_url = reverse_lazy('agenda-list')
-    success_message = "Agenda cadastrada com sucesso!"
+
+    def form_valid(self, form):
+        messages.success(self.request, 'Agenda atualizada com sucesso!')
+        return super().form_valid(form)
+
+# Deletar uma agenda
+class AgendaDeleteView(DeleteView):
+    model = Agenda
+    template_name = 'agenda_confirm_delete.html'
+    success_url = reverse_lazy('agenda-list')
+
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request, 'Agenda deletada com sucesso!')
+        return super().delete(request, *args, **kwargs)
 
 
 # Listar Agendamentos

@@ -1,0 +1,104 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/CSS/style.css' %}" />
+    <title>{% block title %}Sistema de Barbearia{% endblock %}</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh; /* Garante que o conteúdo ocupe toda a altura da tela */
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+
+        nav {
+            background-color: #1976D2;
+            padding: 10px;
+            text-align: center;
+        }
+
+        nav a {
+            color: #fff;
+            margin: 0 15px;
+            text-decoration: none;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        .container {
+            flex: 1; /* Permite que o conteúdo principal expanda e empurre o rodapé para baixo */
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        footer {
+            background-color: #1976D2;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+            margin-top: 20px;
+            width: 100%;
+        }
+
+        footer a {
+            color: #fff;
+            text-decoration: underline;
+        }
+
+        .logout-button {
+            background-color: #f44336;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .logout-button:hover {
+            background-color: #d32f2f;
+        }
+
+        /* Espaçamento especial para o botão logout */
+        .logout-container {
+            text-align: center;
+            margin: 40px auto 80px; /* Margem inferior maior para não sobrepor o rodapé */
+        }
+    </style>
+</head>
+<body>
+    <!-- Menu -->
+    <nav>
+        <a href="{% url 'home' %}">HOME</a>
+        <a href="{% url 'cliente-list' %}">CLIENTES</a>
+        <a href="{% url 'barbearia-list' %}">BARBEARIAS</a>
+        <a href="{% url 'barbeiro-list' %}">BARBEIROS</a>
+        <a href="{% url 'agenda-list' %}">AGENDAS</a>
+        <a href="{% url 'agendamento-list' %}">AGENDAMENTOS</a>
+    </nav>
+
+    <!-- Conteúdo Principal -->
+    <div class="container">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    <!-- Rodapé -->
+    <footer>
+        <p>Desenvolvido por <a href="https://www.instagram.com/riqpedro" target="_blank">Pedro Henrique</a> 
+        e <a href="https://www.instagram.com/jooao_castroo" target="_blank">Joao Castro</a> - 2024</p>
+    </footer>
+</body>
+</html>

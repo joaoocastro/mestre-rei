@@ -11,22 +11,23 @@ class AgendaForm(forms.ModelForm):
         widgets = {
             'barbearia': forms.Select(attrs={'class': 'form-control'}),
             'barbeiro': forms.Select(attrs={'class': 'form-control'}),
-            'data': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
+            'data': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
             'horario': forms.Select(attrs={'class': 'form-control'}),
         }
 
     def clean_data(self):
-        data = self.cleaned_data['data']
+        """
+        Validação do campo 'data': não pode ser no passado.
+        """
+        data = self.cleaned_data.get('data')
 
-        # Check if the date is not in the past.
+        if not data:
+            raise ValidationError('O campo data é obrigatório.')
+
+        # Validação: data no passado
         if data < datetime.date.today():
             raise ValidationError('Data inválida - agendamento no passado.')
 
-        # Check if the date is in the allowed range (+4 weeks from today).
-        if data > datetime.date.today() + datetime.timedelta(weeks=4):
-            raise ValidationError('Data inválida - agendamento mais de 4 semanas à frente.')
-
-        # Remember to always return the cleaned data.
         return data
 
 class AgendamentoForm(forms.ModelForm):

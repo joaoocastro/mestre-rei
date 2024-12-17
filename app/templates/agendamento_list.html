@@ -1,74 +1,32 @@
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de Agendamentos</title>
-    <link rel="stylesheet" href="{% static 'assets/CSS/style.css' %}">
-    <style>
-        .container {
-            max-width: 800px;
-            margin: 20px auto;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        table th, table td {
-            border: 1px solid #ddd;
-            padding: 10px;
-            text-align: left;
-        }
-        table th {
-            background-color: #1976D2;
-            color: #fff;
-        }
-    </style>
-</head>
-<body>
-    <!-- Menu -->
-    <nav>
-        <a href="{% url 'home' %}">HOME</a>
-        <a href="{% url 'barbearia-list' %}">BARBEARIAS</a>
-        <a href="{% url 'barbeiro-list' %}">BARBEIROS</a>
-        <a href="{% url 'agendamento-list' %}">AGENDAMENTOS</a>
-    </nav>
 
-    <div class="container">
-        <h1>Lista de Agendamentos</h1>
-        <a href="{% url 'agendamento-add' %}" class="btn btn-primary">Adicionar Novo Agendamento</a>
-        <table class="table mt-3">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Agenda</th>
-                    <th>Cliente</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for agendamento in agendamentos %}
-                    <tr>
-                        <td>{{ forloop.counter }}</td>
-                        <td>{{ agendamento.agenda }}</td>
-                        <td>{{ agendamento.cliente }}</td>
-                    </tr>
-                {% empty %}
-                    <tr>
-                        <td colspan="3">Nenhum agendamento cadastrado.</td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
+{% block title %}Lista de Agendamentos{% endblock %}
 
-    <!-- Rodapé -->
-    <footer>
-        <p>Desenvolvido por <a href="https://www.instagram.com/riqpedro" target="_blank">Pedro Henrique</a> e <a href="https://www.instagram.com/jooao_castroo" target="_blank">Joao Castro</a> - 2024</p>
-    </footer>
-</body>
-</html>
+{% block content %}
+<h1>Lista de Agendamentos</h1>
+
+<!-- Botão para Adicionar Novo Agendamento -->
+<div style="text-align: right; margin-bottom: 20px;">
+    <a href="{% url 'agendamento-add' %}" class="btn btn-primary" style="
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #3F51B5;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        font-weight: bold;
+        text-align: center;">
+        Adicionar Agendamento
+    </a>
+</div>
+
+<!-- Lista de Agendamentos -->
+<ul>
+    {% for agendamento in agendamentos %}
+        <li>{{ agendamento.agenda }} - {{ agendamento.cliente }}</li>
+    {% empty %}
+        <li>Nenhum agendamento cadastrado ainda.</li>
+    {% endfor %}
+</ul>
+{% endblock %}

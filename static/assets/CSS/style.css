@@ -21,22 +21,38 @@ button{
 	border-radius: 5px;
 }
 
+/* Container do botão Logout */
+#logout-container {
+    position: absolute;
+    top: 10px; /* Distância do topo */
+    right: 20px; /* Distância da direita */
+    z-index: 1000; /* Garante que fique sobre outros elementos */
+}
+
+/* Botão Logout */
 .logout-button {
-	width: 80px;
-	height: 20px;
-	margin: 5px;
-	background-color: #f44336;
-	color: #fff;
-	border: none;
-	padding: 10px 20px;
-	font-size: 16px;
-	border-radius: 5px;
-	cursor: pointer;
-	transition: background-color 0.3s ease;
+    display: inline-flex; /* Alinha o texto verticalmente */
+    justify-content: center; /* Alinha horizontalmente */
+    align-items: center; /* Alinha verticalmente */
+    background-color: #f44336; /* Cor do botão */
+    color: #fff; /* Cor do texto */
+    border: none; /* Remove borda */
+    padding: 5px 15px; /* Padding ajustado */
+    font-size: 14px; /* Tamanho da fonte */
+    font-weight: bold; /* Negrito */
+    border-radius: 5px; /* Borda arredondada */
+    cursor: pointer; /* Ponteiro ao passar o mouse */
+    transition: background-color 0.3s ease; /* Animação de hover */
+    text-decoration: none; /* Remove sublinhado em links */
+    height: auto; /* Remove altura fixa */
+    width: auto; /* Remove largura fixa */
 }
+
 .logout-button:hover {
-	background-color: #d32f2f;
+    background-color: #d32f2f; /* Cor do botão ao passar o mouse */
 }
+
+
 .hidden {
 	display: none;
 }

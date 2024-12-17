@@ -24,9 +24,8 @@ from app.views import (
     ClienteDeleteView, BarbeariaListView, BarbeariaDetailView,
     BarbeariaCreateView, BarbeariaUpdateView, BarbeariaDeleteView,
     TrabalhaListView, TrabalhaDetailView, TrabalhaCreateView,
-    TrabalhaUpdateView, TrabalhaDeleteView, listar_agenda,
-    cadastrar_agenda, cadastrar_agendamento, AgendaListView, AgendaCreateView,
-    AgendamentoListView, AgendamentoCreateView,
+    TrabalhaUpdateView, TrabalhaDeleteView, AgendaListView, AgendaCreateView, AgendaDetailView,
+    AgendamentoListView, AgendamentoCreateView, AgendaDeleteView, AgendaUpdateView,
 )
 from django.contrib.auth.views import LogoutView
 from django.conf import settings
@@ -68,10 +67,16 @@ urlpatterns = [
     # Agenda
     path('agendas/', AgendaListView.as_view(), name='agenda-list'),
     path('agendas/add/', AgendaCreateView.as_view(), name='agenda-add'),
+    path('agendas/<int:pk>/', AgendaDetailView.as_view(), name='agenda-detail'),
+    path('agendas/<int:pk>/update/', AgendaUpdateView.as_view(), name='agenda-update'),
+    path('agendas/<int:pk>/delete/', AgendaDeleteView.as_view(), name='agenda-delete'),
 
     # Agendamento
     path('agendamentos/', AgendamentoListView.as_view(), name='agendamento-list'),
     path('agendamentos/add/', AgendamentoCreateView.as_view(), name='agendamento-add'),
+    # path('agendamentos/add/', AgendamentoDetailView.as_view(), name='agendamento-detail'),
+    # path('agendamentos/add/', AgendamentoUpdateView.as_view(), name='agendamento-update'),
+    # path('agendamentos/add/', AgendamentoDeleteView.as_view(), name='agendamento-delete'),
     
 
 ]

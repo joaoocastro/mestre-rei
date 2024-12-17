@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}Detalhes da Agenda{% endblock %}
+
+{% block content %}
+<h1>Detalhes da Agenda</h1>
+<p><strong>Barbearia:</strong> {{ agenda.barbearia }}</p>
+<p><strong>Barbeiro:</strong> {{ agenda.barbeiro }}</p>
+<p><strong>Data:</strong> {{ agenda.data }}</p>
+<p><strong>Horário:</strong> {{ agenda.get_horario_display }}</p>
+
+<a href="{% url 'agenda-update' agenda.pk %}" class="btn btn-warning">Editar</a>
+<a href="{% url 'agenda-delete' agenda.pk %}" class="btn btn-danger">Deletar</a>
+<a href="{% url 'agenda-list' %}" class="btn btn-secondary">Voltar</a>
+{% endblock %}

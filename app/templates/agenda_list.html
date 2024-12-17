@@ -1,49 +1,31 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de Agendas</title>
-    <link rel="stylesheet" href="{% static 'assets/CSS/style.css' %}">
-</head>
-<body>
-    <nav>
-        <a href="{% url 'home' %}">HOME</a>
-        <a href="{% url 'barbearia-list' %}">BARBEARIAS</a>
-        <a href="{% url 'barbeiro-list' %}">BARBEIROS</a>
-        <a href="{% url 'agendamento-list' %}">AGENDAMENTOS</a>
-    </nav>
+{% extends 'base.html' %}
 
-    <div class="container">
-        <h1>Lista de Agendas</h1>
-        <a href="{% url 'agenda-add' %}" class="btn btn-success">Adicionar Nova Agenda</a>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Barbearia</th>
-                    <th>Barbeiro</th>
-                    <th>Data</th>
-                    <th>Horário</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for agenda in agendas %}
-                <tr>
-                    <td>{{ forloop.counter }}</td>
-                    <td>{{ agenda.barbearia }}</td>
-                    <td>{{ agenda.barbeiro }}</td>
-                    <td>{{ agenda.data }}</td>
-                    <td>{{ agenda.get_horario_display }}</td>
-                </tr>
-                {% empty %}
-                <tr>
-                    <td colspan="5">Nenhuma agenda cadastrada.</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
-</body>
-</html>
+{% block title %}Lista de Agendas{% endblock %}
+
+{% block content %}
+<h1>Lista de Agendas</h1>
+<!-- Botão para Adicionar Nova Agenda -->
+<div style="text-align: right; margin-bottom: 20px;">
+    <a href="{% url 'agenda-add' %}" class="btn btn-primary" style="
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #3F51B5;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        font-weight: bold;">
+        Adicionar Agenda
+    </a>
+</div>
+<ul>
+    {% for agenda in agendas %}
+        <li>
+            <a href="{% url 'agenda-detail' agenda.pk %}">
+                {{ agenda.barbearia }} - {{ agenda.barbeiro }} - {{ agenda.data }} - {{ agenda.get_horario_display }}
+            </a>
+        </li>
+    {% empty %}
+        <li>Nenhuma agenda cadastrada ainda.</li>
+    {% endfor %}
+</ul>
+{% endblock %}

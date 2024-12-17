@@ -1,65 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detalhes do Cliente</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-        }
-        .container {
-            max-width: 600px;
-            margin: 20px auto;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        h1 {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        p {
-            margin-bottom: 10px;
-        }
-        strong {
-            font-weight: bold;
-        }
-        img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 5px;
-        }
-        a {
-            color: #007bff;
-            text-decoration: none;
-            margin-right: 10px;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h1>Detalhes do Cliente</h1>
+{% extends 'base.html' %}
+{% load static %}
 
-        <p><strong>ID do Cliente:</strong> {{ cliente.idCliente }}</p>
-        <p><strong>Nome:</strong> {{ cliente.nomeCliente }}</p>
-        <p><strong>Telefone:</strong> {{ cliente.telefoneCliente }}</p>
-        <p><strong>Email:</strong> {{ cliente.emailCliente }}</p>
-        <p><strong>Sexo:</strong> {{ cliente.sexoCliente }}</p>
-        <p><strong>BarbeiroPreferido:</strong> {{ cliente.barbeiroPreferido }}</p>
-        <p><strong>Foto:</strong> {{ cliente.fotoCliente }}</p>
-        
-        <!-- Adicione outras informações do cliente conforme necessário -->
-        
-        <p><a href="{% url 'cliente-update' cliente.pk %}">Editar</a></p>
-        <p><a href="{% url 'cliente-delete' cliente.pk %}">Excluir</a></p>
-    </div>
-</body>
-</html>
+{% block title %}Detalhes do Cliente{% endblock %}
+
+{% block content %}
+<h1>Detalhes do Cliente</h1>
+
+<p><strong>Nome:</strong> {{ cliente.nomeCliente }}</p>
+<p><strong>Telefone:</strong> {{ cliente.telefoneCliente }}</p>
+<p><strong>Email:</strong> {{ cliente.emailCliente }}</p>
+<p><strong>Sexo:</strong> {{ cliente.sexoCliente }}</p>
+<p><strong>Barbeiro Preferido:</strong> {{ cliente.barbeiroPreferido }}</p>
+<p><strong>Foto:</strong></p>
+{% if cliente.fotoCliente %}
+    <img src="{{ cliente.fotoCliente.url }}" alt="Foto do Cliente" style="width: 200px; height: auto; border-radius: 5px;">
+{% else %}
+    <p>Sem foto disponível.</p>
+{% endif %}
+
+<!-- Botões de Ação -->
+<div style="margin-top: 20px;">
+    <a href="{% url 'cliente-update' cliente.pk %}" class="btn btn-warning">Editar</a>
+    <a href="{% url 'cliente-delete' cliente.pk %}" class="btn btn-danger">Deletar</a>
+    <a href="{% url 'cliente-list' %}" class="btn btn-secondary">Voltar</a>
+</div>
+{% endblock %}

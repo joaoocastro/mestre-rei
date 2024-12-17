@@ -1,98 +1,39 @@
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="assets/CSS/style.css" />
-    <title>Lista de Barbearias</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-        }
-        .container {
-            max-width: 600px;
-            margin: 20px auto;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        h1 {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        ul {
-            list-style: none;
-            padding: 0;
-        }
-        li {
-            margin-bottom: 10px;
-        }
-        a {
-            color: #007bff;
-            text-decoration: none;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
-        nav {
-            background-color: #1976D2;
-            padding: 10px;
-            text-align: center;
-        }
-        nav a {
-            color: #fff;
-            margin: 0 15px;
-            text-decoration: none;
-        }
-        nav a:hover {
-            text-decoration: underline;
-        }
-        footer {
-            background-color: #1976D2;
-            color: #fff;
-            text-align: center;
-            padding: 10px;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-        }
-        footer a {
-            color: #fff;
-            text-decoration: underline;
-        }
-    </style>
-</head>
-<body>
 
-    <nav>
-        <a class="a-menu" href="{% url 'home' %}"> HOME </a>
-        <a class="a-menu" href="#pag-alguns_servicos"> SERVIÇOS </a>
-        <a class="a-menu" href="{% url 'barbearia-list' %}"> BARBEARIAS </a>
-        <a class="a-menu" href="{% url 'barbeiro-list' %}"> BARBEIROS </a>
-        <a class="a-menu" href="{% url 'agendamento-list' %}"> AGENDE UM HORÁRIO </a>
-    </nav>
+{% block title %}Lista de Barbearias{% endblock %}
 
-    <div class="container">
-        <h1>Lista de Barbearias</h1>
-        <a href="{% url 'barbearia-add' %}" class="btn btn-primary">Adicionar Nova Barbearia</a>
+{% block content %}
+<h1>Lista de Barbearias</h1>
 
-        <ul>
-            {% for barbearia in barbearias %}
-                <li>
-                    <a href="{% url 'barbearia-detail'  barbearia.idBarbearia %}">{{ barbearia.nome }}</a>
-                </li>
-            {% endfor %}
-        </ul>
-    </div>
+<!-- Botão para Adicionar Nova Barbearia -->
+<div style="text-align: right; margin-bottom: 20px;">
+    <a href="{% url 'barbearia-add' %}" class="btn btn-primary" style="
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #3F51B5;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        font-weight: bold;
+        text-align: center;">
+        Adicionar Barbearia
+    </a>
+</div>
 
-    <footer>
-        <p>Desenvolvido por <a href="https://www.instagram.com/riqpedro" target="_blank">Pedro Henrique</a> e <a href="https://www.instagram.com/jooao_castroo" target="_blank">Joao Castro</a> - 2024</p>
-    </footer>
-
-</body>
-</html>
+<!-- Lista de Barbearias -->
+<ul style="list-style-type: none; padding: 0;">
+    {% for barbearia in barbearias %}
+        <li style="margin-bottom: 10px;">
+            <a href="{% url 'barbearia-detail' barbearia.idBarbearia %}" style="
+                text-decoration: none; 
+                color: #1976D2; 
+                font-weight: bold;">
+                {{ barbearia.nome }} - {{ barbearia.endereco }}
+            </a>
+        </li>
+    {% empty %}
+        <li>Nenhuma barbearia cadastrada ainda.</li>
+    {% endfor %}
+</ul>
+{% endblock %}

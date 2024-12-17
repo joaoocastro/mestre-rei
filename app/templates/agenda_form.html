@@ -1,28 +1,13 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Adicionar Agenda</title>
-    <link rel="stylesheet" href="{% static 'assets/CSS/style.css' %}">
-</head>
-<body>
-    <nav>
-        <a href="{% url 'home' %}">HOME</a>
-        <a href="{% url 'barbearia-list' %}">BARBEARIAS</a>
-        <a href="{% url 'barbeiro-list' %}">BARBEIROS</a>
-        <a href="{% url 'agendamento-list' %}">AGENDAMENTOS</a>
-    </nav>
+{% extends 'base.html' %}
 
-    <div class="container">
-        <h1>Adicionar Nova Agenda</h1>
-        <form method="post" action="{% url 'agenda-add' %}">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit" class="btn btn-primary">Salvar</button>
-            <a href="{% url 'agenda-list' %}" class="btn btn-secondary">Voltar</a>
-        </form>
-    </div>
-</body>
-</html>
+{% block title %}Cadastrar/Editar Agenda{% endblock %}
+
+{% block content %}
+<h1>{{ form.instance.pk|yesno:"Editar Agenda,Cadastrar Nova Agenda" }}</h1>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-success">Salvar</button>
+    <a href="{% url 'agenda-list' %}" class="btn btn-secondary">Voltar</a>
+</form>
+{% endblock %}
