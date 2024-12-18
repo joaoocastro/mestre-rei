@@ -5,16 +5,6 @@
 
 {% block content %}
 
-<!-- Container para botão Logout -->
-<div id="logout-container">
-    {% if user.is_authenticated %}
-        <form action="{% url 'logout' %}" method="post">
-            {% csrf_token %}
-            <button class="logout-button" type="submit">Logout</button>
-        </form>
-    {% endif %}
-</div>
-
 
 <!-- Banner -->
 <div style="text-align: center; margin-bottom: 20px;">

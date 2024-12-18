@@ -60,7 +60,7 @@
             background-color: #f44336;
             color: #fff;
             border: none;
-            padding: 10px 20px;
+            padding: 2px 15px;
             font-size: 16px;
             border-radius: 5px;
             cursor: pointer;
@@ -88,6 +88,15 @@
         <a href="{% url 'agenda-list' %}">AGENDAS</a>
         <a href="{% url 'agendamento-list' %}">AGENDAMENTOS</a>
         <a href="{% url 'trabalha-list' %}">B & B</a>
+        {% comment %} <!-- Container para botão Logout -->
+        <div id="logout-container">
+            {% if user.is_authenticated %}
+                <form action="{% url 'logout' %}" method="post">
+                    {% csrf_token %}
+                    <button class="logout-button" type="submit">Logout</button>
+                </form>
+            {% endif %}
+        </div> {% endcomment %}
     </nav>
 
     <!-- Conteúdo Principal -->
@@ -100,6 +109,15 @@
     <footer>
         <p>Desenvolvido por <a href="https://www.instagram.com/riqpedro" target="_blank">Pedro Henrique</a> 
         e <a href="https://www.instagram.com/jooao_castroo" target="_blank">Joao Castro</a> - 2024</p>
+        <!-- Container para botão Logout -->
+        <div id="logout-container">
+            {% if user.is_authenticated %}
+                <form action="{% url 'logout' %}" method="post">
+                    {% csrf_token %}
+                    <button class="logout-button" type="submit">Logout</button>
+                </form>
+            {% endif %}
+        </div>
     </footer>
 </body>
 </html>
