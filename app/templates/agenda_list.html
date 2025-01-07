@@ -17,6 +17,19 @@
         Adicionar Agenda
     </a>
 </div>
+<!-- Botão dashboard -->
+<div style="text-align: right; margin-bottom: 20px;">
+    <a href="{% url 'dashboard' %}" class="btn btn-primary" style="
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #a11510;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        font-weight: bold;">
+        Dashboard
+    </a>
+</div>
 <ul>
     {% for agenda in agendas %}
         <li>

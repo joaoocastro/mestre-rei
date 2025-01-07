@@ -31,6 +31,9 @@ from django.contrib.auth.views import LogoutView
 from django.conf import settings
 from django.conf.urls.static import static
 
+from django.urls import path
+from app.views import dashboard_view
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),  # administrador
@@ -76,6 +79,8 @@ urlpatterns = [
     path('agendamentos/<int:pk>/update/', AgendamentoUpdateView.as_view(), name='agendamento-update'),
     path('agendamentos/<int:pk>/delete/', AgendamentoDeleteView.as_view(), name='agendamento-delete'),
     
+
+    path('dashboard/', dashboard_view, name='dashboard'),
 
 ]
 

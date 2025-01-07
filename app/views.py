@@ -19,6 +19,10 @@ from .models import Agenda
 from .forms import AgendaForm
 from django.contrib.messages.views import SuccessMessageMixin
 
+from django.shortcuts import render
+from django.db.models import Count
+from .models import Agendamento, Barbeiro, Barbearia, Agenda
+
 
 class RenderTemplateView(View):
     def get(self, request, template_name):
@@ -296,3 +300,45 @@ class AgendamentoDeleteView(DeleteView):
     def delete(self, request, *args, **kwargs):
         messages.success(self.request, 'Agendamento deletado com sucesso!')
         return super().delete(request, *args, **kwargs)
+
+
+def dashboard_view(request):
+    # Total de agendamentos por barbearia
+    agendamentos_por_barbearia = (
+        Agendamento.objects
+        .values('agenda__barbearia__nome')  # Nome da barbearia
+        .annotate(total=Count('id'))
+        .order_by('-total')
+    )
+    labels_barbearia = [item['agenda__barbearia__nome'] for item in agendamentos_por_barbearia]
+    data_barbearia = [item['total'] for item in agendamentos_por_barbearia]
+
+    # Clientes atendidos por barbeiro
+    clientes_por_barbeiro = (
+        Agendamento.objects
+        .values('agenda__barbeiro__NomeBarbeiro')  # Nome do barbeiro
+        .annotate(total=Count('cliente'))
+        .order_by('-total')
+    )
+    labels_barbeiro = [item['agenda__barbeiro__NomeBarbeiro'] for item in clientes_por_barbeiro]
+    data_barbeiro = [item['total'] for item in clientes_por_barbeiro]
+
+    # Horários mais populares
+    horarios_populares = (
+        Agenda.objects
+        .values('horario')
+        .annotate(total=Count('agendamento'))
+        .order_by('-total')
+    )
+    labels_horarios = [item['horario'] for item in horarios_populares]
+    data_horarios = [item['total'] for item in horarios_populares]
+
+    context = {
+        'labels_barbearia': labels_barbearia,
+        'data_barbearia': data_barbearia,
+        'labels_barbeiro': labels_barbeiro,
+        'data_barbeiro': data_barbeiro,
+        'labels_horarios': labels_horarios,
+        'data_horarios': data_horarios,
+    }
+    return render(request, 'dashboard.html', context)
